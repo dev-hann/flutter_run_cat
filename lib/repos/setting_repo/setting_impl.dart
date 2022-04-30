@@ -4,13 +4,13 @@ import 'package:flutter_run_cat/repos/setting_repo/setting_repo.dart';
 
 class SettingImpl extends SettingRepo {
   @override
-  Future init() async {}
-
-  @override
-  void addModelListener(ModelCallback<Setting> listener) {
+  Future init() async {
+    return;
   }
 
   @override
-  void removeModelListener(ModelCallback<Setting> listener) {
-  }
+  void addModelListener(ModelCallback<Setting> listener) {}
+
+  @override
+  void removeModelListener(ModelCallback<Setting> listener) {}
 }

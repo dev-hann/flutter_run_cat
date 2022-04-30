@@ -8,3 +8,4 @@ abstract class Repo<T> {
   void addModelListener(ModelCallback<T> listener);
 
   void removeModelListener(ModelCallback<T> listener);
+}

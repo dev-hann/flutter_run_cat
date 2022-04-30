@@ -1,14 +1,6 @@
 part of controllers;
 
-class SystemController extends Controller with SettingListenerMixin {
-  @override
-  Future initUseCase() async {
-
-  }
+class SystemController extends Controller   {
   
-
-  @override
-  void settingListener(Setting value) {
-    // TODO: implement settingListener
-  }
+  
 }

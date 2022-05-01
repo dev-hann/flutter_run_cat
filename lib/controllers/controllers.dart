@@ -1,7 +1,9 @@
 library controllers;
 
 import 'dart:async';
+import 'dart:ui';
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter_run_cat/models/setting.dart';
 import 'package:flutter_run_cat/repos/setting_repo/setting_impl.dart';
 import 'package:flutter_run_cat/use_cases/setting_use_case/setting_use_case.dart';

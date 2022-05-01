@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +8,9 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   initControllers();
   runApp(const MyApp());
+  doWhenWindowReady(() {
+    appWindow.hide();
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const GetMaterialApp(
-        /// Add Setting View
+      /// Add Setting View
       home: SizedBox(),
     );
   }

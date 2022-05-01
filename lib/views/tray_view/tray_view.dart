@@ -13,7 +13,7 @@ class TrayView {
   Future init() async {
     await _systemTray.initSystemTray(
       title: "Title",
-      iconPath: '/assets/cat/0.png',
+      iconPath: 'assets/cat/0.png',
     );
     _systemTray.setContextMenu(menu);
     print("@#@##@#@#aaaaaaa");

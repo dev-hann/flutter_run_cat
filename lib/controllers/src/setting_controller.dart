@@ -1,8 +1,27 @@
 part of controllers;
 
-class SettingController extends Controller {
-  final SettingUseCase useCase = SettingUseCase(SettingImpl());
+mixin ListenableSettingMixin on Controller {
+  final SettingUseCase settingUseCase = SettingUseCase(SettingImpl());
 
+  Setting get loadSetting => settingUseCase.loadSetting();
+
+  @override
+  Future onReady() async {
+    super.onReady();
+    await settingUseCase.init();
+    settingUseCase.addModelListener(settingListener);
+  }
+
+  @override
+  void onClose() {
+    settingUseCase.removeModelListener(settingListener);
+    super.onClose();
+  }
+
+  void settingListener(Setting setting);
+}
+
+class SettingController extends Controller with ListenableSettingMixin {
   void _initWindow() {
     doWhenWindowReady(() {
       const initialSize = Size(600, 450);
@@ -13,13 +32,15 @@ class SettingController extends Controller {
   }
 
   @override
-  void onReady() async {
+  Future onReady() async {
     _initWindow();
-    await useCase.init();
-    super.onReady();
+    await super.onReady();
   }
 
   Setting loadSetting() {
     return Setting();
   }
+
+  @override
+  void settingListener(Setting setting) {}
 }

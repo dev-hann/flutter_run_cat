@@ -97,6 +97,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_app_indicator:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "49797a94595f8219fbc0f66143af5a022ad353b8"
+      url: "https://github.com/yoehwan/flutter_app_indicator.git"
+    source: git
+    version: "0.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -191,13 +200,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  system_tray:
-    dependency: "direct main"
-    description:
-      name: system_tray
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   term_glyph:
     dependency: transitive
     description:
@@ -235,4 +237,4 @@ packages:
     version: "2.5.2"
 sdks:
   dart: ">=2.16.2 <3.0.0"
-  flutter: ">=1.22.0"
+  flutter: ">=2.5.0"

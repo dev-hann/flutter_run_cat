@@ -6,7 +6,7 @@ class SettingImpl extends SettingRepo {
   Future init() async {
     return;
   }
-  
+
   /// it will be replaced to DB.
   Setting _tmpSetting = Setting();
 

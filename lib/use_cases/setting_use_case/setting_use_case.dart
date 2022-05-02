@@ -4,4 +4,9 @@ import 'package:flutter_run_cat/use_cases/use_case.dart';
 
 class SettingUseCase extends UseCase<Setting> {
   SettingUseCase(SettingRepo repo) : super(repo);
+
+
+  Setting loadSetting(){
+    return repo.loadSetting();
+  }
 }

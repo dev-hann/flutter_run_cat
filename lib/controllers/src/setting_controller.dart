@@ -37,10 +37,6 @@ class SettingController extends Controller with ListenableSettingMixin {
     await super.onReady();
   }
 
-  Setting loadSetting() {
-    return Setting();
-  }
-
   @override
   void settingListener(Setting setting) {}
 }

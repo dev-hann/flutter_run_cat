@@ -1,27 +1,28 @@
 part of controllers;
 
 class TrayController extends Controller with ListenableSettingMixin {
-  final SystemTray _tray = SystemTray();
+  final FlutterAppIndicator _indicator = FlutterAppIndicator();
   final TrayView _trayView = TrayView();
 
   @override
   Future onReady() async {
     await super.onReady();
-    await _trayView.init();
     await _initTray();
     initTicker();
   }
 
   Future _initTray() async {
-    await _tray.initSystemTray(
+    await _indicator.init(
       title: "runCat",
-      iconPath: 'assets/cat/0.png',
+      iconPath: 'assets/cat/0.svg',
+      label: "Hello",
+      menuList: [],
     );
-    _tray.setContextMenu([
-      MenuItem(label: 'Show', onClicked: onTapShow),
-      MenuItem(label: 'Hide', onClicked: onTapHide),
-      MenuItem(label: 'Exit', onClicked: () {}),
-    ]);
+    // _tray.setContextMenu([
+    // MenuItem(label: 'Show', onClicked: onTapShow),
+    // MenuItem(label: 'Hide', onClicked: onTapHide),
+    // MenuItem(label: 'Exit', onClicked: () {}),
+    // ]);
   }
 
   void onTapShow() {
@@ -45,7 +46,9 @@ class TrayController extends Controller with ListenableSettingMixin {
 
   void onTick(Timer timer) async {
     final index = timer.tick % 5;
-    await _tray.setImage('assets/cat/$index.png');
+
+    await _indicator.setIcon('assets/cat/$index.svg');
+    await _indicator.setLabel("Hello$index");
   }
 
   @override

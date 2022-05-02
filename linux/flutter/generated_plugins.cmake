@@ -4,7 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   bitsdojo_window_linux
-  system_tray
+  flutter_app_indicator
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

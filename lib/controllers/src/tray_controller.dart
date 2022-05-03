@@ -1,12 +1,16 @@
 part of controllers;
 
+/// TODO: appIndicator make that be able to receive raw data of Icon, no path.
+/// It can be save cpu, but can be need more memory?
 class TrayController extends Controller with ListenableSettingMixin {
   final FlutterAppIndicator _indicator = FlutterAppIndicator();
-  final TrayView _trayView = TrayView();
+  final TrayView _trayView = TrayView('assets/cat/');
+  final SystemUseCase _systemUseCase = SystemUseCase(SystemImpl());
 
   @override
   Future onReady() async {
     await super.onReady();
+    await _systemUseCase.init();
     await _initTray();
     initTicker();
   }
@@ -14,8 +18,8 @@ class TrayController extends Controller with ListenableSettingMixin {
   Future _initTray() async {
     await _indicator.init(
       title: "runCat",
-      iconPath: 'assets/cat/0.svg',
-      label: "Hello",
+      iconPath: _trayView.nextIcon(),
+      label: _label(),
       menuList: [],
     );
     // _tray.setContextMenu([
@@ -23,6 +27,10 @@ class TrayController extends Controller with ListenableSettingMixin {
     // MenuItem(label: 'Hide', onClicked: onTapHide),
     // MenuItem(label: 'Exit', onClicked: () {}),
     // ]);
+  }
+
+  String _label() {
+    return _trayView.label(_systemUseCase.loadSystem());
   }
 
   void onTapShow() {
@@ -33,22 +41,21 @@ class TrayController extends Controller with ListenableSettingMixin {
     appWindow.hide();
   }
 
-  void onChangedSetting(Setting setting) {}
-
   /// Ticker
-  Timer? _timer;
+  final t.Ticker _iconTicker = t.Ticker();
+  final t.Ticker _systemTicker = t.Ticker();
   void initTicker() {
-    if (_timer != null && _timer!.isActive) {
-      _timer!.cancel();
-    }
-    _timer = Timer.periodic(const Duration(milliseconds: 300), onTick);
+    _iconTicker.start(
+        duration: Duration(milliseconds: 200), onTick: onIconTick);
+    _systemTicker.start(duration: Duration(seconds: 3), onTick: onSystemTick);
   }
 
-  void onTick(Timer timer) async {
-    final index = timer.tick % 5;
+  void onIconTick(_) async {
+    await _indicator.setIcon(_trayView.nextIcon());
+  }
 
-    await _indicator.setIcon('assets/cat/$index.svg');
-    await _indicator.setLabel("Hello$index");
+  void onSystemTick(int index) async {
+    await _indicator.setLabel(_label());
   }
 
   @override

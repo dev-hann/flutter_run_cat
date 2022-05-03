@@ -1,11 +1,24 @@
-import 'package:flutter_run_cat/models/setting.dart';
 import 'package:flutter_run_cat/models/system.dart';
 
 class TrayView {
-  Future init(Setting setting) async {}
+  TrayView(this.iconDir);
 
-  Future render({
-    required Setting setting,
-    required System system,
-  }) async {}
+  String iconDir;
+
+  int _count = 0;
+
+  String nextIcon() {
+    _count++;
+    final _index = _count % 5;
+    return iconDir + '$_index.svg';
+  }
+
+  void updateIconDir(String newIconDir) {
+    iconDir = newIconDir;
+    _count = 0;
+  }
+
+  String label(System system) {
+    return "CPU: ${system.cpuAverage}  Memory: ${system.memory}";
+  }
 }

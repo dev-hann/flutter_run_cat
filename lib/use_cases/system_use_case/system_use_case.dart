@@ -4,4 +4,8 @@ import 'package:flutter_run_cat/use_cases/use_case.dart';
 
 class SystemUseCase extends UseCase<SystemRepo, System> {
   SystemUseCase(SystemRepo repo) : super(repo);
+
+  System loadSystem(){
+    return repo.loadSystem();
+  }
 }

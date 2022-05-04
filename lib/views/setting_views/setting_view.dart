@@ -13,6 +13,6 @@ class SettingView extends StatelessWidget {
           child: Text("!!!"),
         ),
       ),
-    );
+    
   }
 }

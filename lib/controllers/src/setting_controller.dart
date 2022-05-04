@@ -27,7 +27,8 @@ class SettingController extends Controller with ListenableSettingMixin {
       const initialSize = Size(600, 450);
       appWindow.minSize = initialSize;
       appWindow.size = initialSize;
-      appWindow.hide();
+      appWindow.title="Run Cat";
+      // appWindow.hide();
     });
   }
 

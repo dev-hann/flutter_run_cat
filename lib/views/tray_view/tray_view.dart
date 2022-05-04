@@ -19,6 +19,6 @@ class TrayView {
   }
 
   String label(System system) {
-   " CPU: ${system.cpuAverage.ceil()}%  Memory: ${system.memory.toInt()}%";
+    return " CPU: ${system.cpuAverage.ceil()}%  Memory: ${system.memory.toInt()}%";
   }
 }

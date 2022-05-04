@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:flutter_run_cat/models/system.dart';
 
 import 'system_repo.dart';
@@ -49,8 +48,27 @@ class SystemImpl extends SystemRepo {
     }
   }
 
-  int _loadMemory() {
-    return 88;
+  double _loadMemory() {
+    try {
+      final _data = _loadData('/proc/meminfo');
+      final _list = _data.split('\n');
+      int _total = 0;
+      int _avail = 0;
+      for (final item in _list) {
+        final _itemList = item.split(":");
+        if (_itemList[0] == "MemTotal") {
+          final _value = _itemList[1].replaceAll("kB", "").trim();
+          _total = int.parse(_value);
+        } else if (_itemList[0] == "MemAvailable") {
+          final _value = _itemList[1].replaceAll("kB", "").trim();
+          _avail = int.parse(_value);
+        }
+      }
+      return (_total - _avail) / _total * 100;
+    } catch (e) {
+      print(e);
+      return 0;
+    }
   }
 
   /// TODO:handel error

@@ -22,6 +22,7 @@ class TrayController extends Controller with ListenableSettingMixin {
       label: _label(),
       menuList: [],
     );
+    
     // _tray.setContextMenu([
     // MenuItem(label: 'Show', onClicked: onTapShow),
     // MenuItem(label: 'Hide', onClicked: onTapHide),

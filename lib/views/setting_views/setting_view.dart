@@ -1,10 +1,18 @@
+library setting_view;
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_run_cat/controllers/controllers.dart';
+import 'package:get/get.dart';
 
-import 'menu_view.dart';
+import 'menu_views/menu_icon_view.dart';
+
+part 'setting_view_model.dart';
 
 class SettingView extends StatelessWidget {
-  const SettingView({Key? key}) : super(key: key);
+  SettingView({Key? key}) : super(key: key);
+
+  final SettingViewModel _viewModel = SettingViewModel();
 
   Widget _appBar() {
     return WindowTitleBarBox(
@@ -19,14 +27,31 @@ class SettingView extends StatelessWidget {
             ),
           ),
           CloseWindowButton(
-            onPressed: () {
-              appWindow.close();
-              appWindow.hide();
-            },
+            onPressed: _viewModel.onTapClose,
           ),
         ],
       ),
     );
+  }
+
+  Widget _menuIconView() {
+    return GetBuilder<SettingController>(
+      id: _viewModel.menuIconViewID,
+      builder: (_) {
+        return MenuIconView(
+          onTapIcon: (index) {},
+          selectedIndex: 0,
+        );
+      },
+    );
+  }
+
+  Widget _menuBodyView() {
+    return GetBuilder<SettingController>(
+        id: _viewModel.menuBodyViewID,
+        builder: (_) {
+          return const MenuBodyView();
+        });
   }
 
   @override
@@ -38,9 +63,9 @@ class SettingView extends StatelessWidget {
         child: Column(
           children: [
             _appBar(),
-            MenuView(),
-            Divider(),
-            Text("@#@#@:w"),
+            _menuIconView(),
+            const Divider(),
+            _menuBodyView(),
           ],
         ),
       ),

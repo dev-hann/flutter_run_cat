@@ -1,12 +1,7 @@
-library menu_view;
-
 import 'package:flutter/material.dart';
 
-part 'src/check_menu_view.dart';
-
-class MenuView extends StatelessWidget {
-  const MenuView({Key? key}) : super(key: key);
-
+class MenuIconView extends StatelessWidget {
+  const MenuIconView({Key? key}) : super(key: key);
 
   Widget _icon(IconData data, String label) {
     return Column(

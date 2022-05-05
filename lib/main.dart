@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_run_cat/views/setting_views/setting_view.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
           displayColor: lightGrey,
         ),
       ),
-      home: const SettingView(),
+      home: SettingView(),
     );
   }
 }

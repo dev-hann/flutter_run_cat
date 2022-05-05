@@ -21,26 +21,36 @@ mixin ListenableSettingMixin on Controller {
   void settingListener(Setting setting);
 }
 
-class SettingController extends Controller with ListenableSettingMixin {
-  void _initWindow() {
-    doWhenWindowReady(() {
-      const initialSize = Size(600, 450);
-      appWindow.minSize = initialSize;
-      appWindow.size = initialSize;
-      appWindow.title="Run Cat";
-      // appWindow.hide();
-    });
-  }
+class SettingController extends Controller
+    with ListenableSettingMixin, WindonwMixin {
+  static SettingController find() => Get.find<SettingController>();
+  // void _initWindow() {
+  //   doWhenWindowReady(() {
+  //     const initialSize = Size(600, 450);
+  //     appWindow.minSize = initialSize;
+  //     appWindow.size = initialSize;
+  //     appWindow.title = "Run Cat";
+  //     // appWindow.hide();
+  //   });
+  // }
 
   @override
   Future onReady() async {
-    _initWindow();
+    initWindow(const Size(600, 450));
     await super.onReady();
   }
 
   @override
   void settingListener(Setting setting) {}
 
+  /// View
+  final String menuIconViewID = "meniIconViewID";
+  void updateMenuIconView() {
+    update([menuIconViewID]);
+  }
 
-
+  final String menuBodyViewID = "menuBodyViewID";
+  void updateMenuBodyView() {
+    update([menuBodyViewID]);
+  }
 }

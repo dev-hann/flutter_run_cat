@@ -25,7 +25,7 @@ class TrayController extends Controller
     await _indicator.setMenu([
       MenuItem("Preference", showWindow),
       MenuDivider(),
-      MenuItem("Exit", hideWindow),
+      MenuItem("Exit", closeWindow),
     ]);
   }
 

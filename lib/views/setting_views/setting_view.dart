@@ -1,13 +1,10 @@
-library setting_view;
-
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_run_cat/controllers/controllers.dart';
 import 'package:flutter_run_cat/theme.dart';
 import 'package:get/get.dart';
 import 'package:tuple/tuple.dart';
-
-part 'setting_view_model.dart';
+import 'setting_view_model.dart';
 
 class SettingView extends StatefulWidget {
   const SettingView({Key? key}) : super(key: key);
@@ -64,7 +61,7 @@ class _StateSettingView extends State<SettingView>
             highlightColor: Colors.transparent,
           ),
           child: TabBar(
-            labelColor: lightYellow,
+            labelColor: lightBlue,
             unselectedLabelColor: lightGrey,
             overlayColor: MaterialStateProperty.all(Colors.transparent),
             controller: _viewModel.tabController,
@@ -99,7 +96,6 @@ class _StateSettingView extends State<SettingView>
       id: _viewModel.menuBodyViewID,
       builder: (_) {
         return SizedBox();
-        // return const MenuBodyView();
       },
     );
   }

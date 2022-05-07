@@ -1,4 +1,6 @@
-part of setting_view;
+import 'package:flutter/material.dart';
+import 'package:flutter_run_cat/controllers/controllers.dart';
+import 'package:tuple/tuple.dart';
 
 class SettingViewModel {
   final SettingController settingController = SettingController.find();

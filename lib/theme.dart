@@ -7,8 +7,7 @@ const lightBlack = Color(0xFF565656);
 const lightGrey = Color(0xFFDBDBDB);
 const dartGrey = Color(0xFFA4A4A4);
 
-const lightYellow = Color(0xFFEFD672);
-
+const lightBlue = Color(0xFF7DB1C7);
 ThemeData get customThemeData => ThemeData(
       scaffoldBackgroundColor: dartBlack,
       textTheme: const TextTheme(
@@ -18,7 +17,7 @@ ThemeData get customThemeData => ThemeData(
       ),
       buttonTheme: const ButtonThemeData(
         buttonColor: lightGrey,
-        focusColor: lightYellow,
+        focusColor: lightBlue,
         hoverColor: Colors.red,
       ),
       dividerTheme: const DividerThemeData(

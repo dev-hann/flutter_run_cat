@@ -44,11 +44,6 @@ class SettingController extends Controller
   void settingListener(Setting setting) {}
 
   /// View
-  final String menuIconViewID = "meniIconViewID";
-  void updateMenuIconView() {
-    update([menuIconViewID]);
-  }
-
   final String menuBodyViewID = "menuBodyViewID";
   void updateMenuBodyView() {
     update([menuBodyViewID]);

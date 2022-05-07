@@ -1,10 +1,12 @@
-part of menu_view;
+library menu_body_view;
 
-class MenuBodyView extends StatelessWidget {
+import 'package:flutter/material.dart';
+
+
+abstract class MenuBodyView extends StatelessWidget {
   const MenuBodyView({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Text("");
-  }
+  
+  
+
 }

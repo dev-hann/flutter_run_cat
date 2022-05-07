@@ -10,7 +10,7 @@ class TrayView {
   String nextIcon() {
     _count++;
     final _index = _count % 5;
-    return iconDir + '$_index.svg';
+    return iconDir + '$_index.png';
   }
 
   void updateIconDir(String newIconDir) {

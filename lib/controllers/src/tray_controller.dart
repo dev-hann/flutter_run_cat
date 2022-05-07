@@ -2,7 +2,8 @@ part of controllers;
 
 /// TODO: appIndicator make that be able to receive raw data of Icon, no path.
 /// It can be save cpu, but can be need more memory?
-class TrayController extends Controller with ListenableSettingMixin {
+class TrayController extends Controller
+    with ListenableSettingMixin, WindonwHelperMixin {
   final FlutterAppIndicator _indicator = FlutterAppIndicator();
   final TrayView _trayView = TrayView('assets/cat/');
   final SystemUseCase _systemUseCase = SystemUseCase(SystemImpl());
@@ -20,26 +21,16 @@ class TrayController extends Controller with ListenableSettingMixin {
       title: "runCat",
       iconPath: _trayView.nextIcon(),
       label: _label(),
-      menuList: [],
     );
-    
-    // _tray.setContextMenu([
-    // MenuItem(label: 'Show', onClicked: onTapShow),
-    // MenuItem(label: 'Hide', onClicked: onTapHide),
-    // MenuItem(label: 'Exit', onClicked: () {}),
-    // ]);
+    await _indicator.setMenu([
+      MenuItem("Preference", showWindow),
+      MenuDivider(),
+      MenuItem("Exit", hideWindow),
+    ]);
   }
 
   String _label() {
     return _trayView.label(_systemUseCase.loadSystem());
-  }
-
-  void onTapShow() {
-    appWindow.show();
-  }
-
-  void onTapHide() {
-    appWindow.hide();
   }
 
   /// Ticker

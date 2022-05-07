@@ -22,7 +22,7 @@ mixin ListenableSettingMixin on Controller {
 }
 
 class SettingController extends Controller
-    with ListenableSettingMixin, WindonwMixin {
+    with ListenableSettingMixin, WindonwHelperMixin {
   static SettingController find() => Get.find<SettingController>();
   // void _initWindow() {
   //   doWhenWindowReady(() {

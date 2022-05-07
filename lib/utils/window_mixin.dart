@@ -1,7 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/widgets.dart';
 
-mixin WindonwMixin {
+mixin WindonwHelperMixin {
   void initWindow(Size size) {
     doWhenWindowReady(() {
       final _w = appWindow;

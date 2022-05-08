@@ -1,9 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_run_cat/controllers/controllers.dart';
 import 'package:flutter_run_cat/theme.dart';
-import 'package:get/get.dart';
 import 'package:tuple/tuple.dart';
+import 'menu_views/menu_view.dart';
 import 'setting_view_model.dart';
 
 class SettingView extends StatefulWidget {
@@ -91,12 +90,19 @@ class _StateSettingView extends State<SettingView>
     );
   }
 
-  Widget _menuBodyView() {
-    return GetBuilder<SettingController>(
-      id: _viewModel.menuBodyViewID,
-      builder: (_) {
-        return SizedBox();
-      },
+  Widget _menuView() {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: 300,
+        maxWidth: 300,
+      ),
+      child: TabBarView(
+        controller: _viewModel.tabController,
+        children: [
+          GeneralView(),
+          Text("!!!"),
+        ],
+      ),
     );
   }
 
@@ -110,7 +116,7 @@ class _StateSettingView extends State<SettingView>
           children: [
             _appBar(),
             const Divider(height: 0),
-            _menuBodyView(),
+            _menuView(),
           ],
         ),
       ),

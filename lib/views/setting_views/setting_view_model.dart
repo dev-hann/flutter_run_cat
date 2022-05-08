@@ -27,8 +27,5 @@ class SettingViewModel {
 
   void onTapMenu(int index) {
     menuIndex = index;
-    settingController.updateMenuBodyView();
   }
-
-  String get menuBodyViewID => settingController.menuBodyViewID;
 }

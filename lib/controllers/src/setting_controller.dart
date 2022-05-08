@@ -24,15 +24,6 @@ mixin ListenableSettingMixin on Controller {
 class SettingController extends Controller
     with ListenableSettingMixin, WindonwHelperMixin {
   static SettingController find() => Get.find<SettingController>();
-  // void _initWindow() {
-  //   doWhenWindowReady(() {
-  //     const initialSize = Size(600, 450);
-  //     appWindow.minSize = initialSize;
-  //     appWindow.size = initialSize;
-  //     appWindow.title = "Run Cat";
-  //     // appWindow.hide();
-  //   });
-  // }
 
   @override
   Future onReady() async {
@@ -44,8 +35,8 @@ class SettingController extends Controller
   void settingListener(Setting setting) {}
 
   /// View
-  final String menuBodyViewID = "menuBodyViewID";
-  void updateMenuBodyView() {
-    update([menuBodyViewID]);
+  final String generalViewID = "generalViewID";
+  void updateGeneralView() {
+    update([generalViewID]);
   }
 }

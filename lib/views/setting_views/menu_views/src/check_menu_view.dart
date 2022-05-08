@@ -1,10 +1,14 @@
 part of menu_view;
 
 class CheckMenuItem {
+  CheckMenuItem({
+    required this.check,
+    required this.desc,
+    required this.onTap,
+  });
   final bool check;
   final String desc;
   final VoidCallback onTap;
-  CheckMenuItem(this.check, this.desc, this.onTap);
 }
 
 class CheckMenuView extends StatelessWidget {

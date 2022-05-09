@@ -3,7 +3,6 @@ import 'dart:async';
 typedef TickerCallback = Future Function(int tick);
 
 class Ticker {
-
   Duration? _duration;
   TickerCallback? _onTick;
   void start({
@@ -29,11 +28,12 @@ class Ticker {
   }
 
   void update({Duration? duration, TickerCallback? onTick}) {
-    start(duration: duration ?? _duration!, onTick: onTick ?? _onTick!);
+    _duration = duration ?? _duration;
+    _onTick = onTick ?? _onTick;
   }
 
   void dispose() {
-    _trigger=false;
+    _trigger = false;
     _tick = 0;
   }
 }

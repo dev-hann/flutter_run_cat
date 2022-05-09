@@ -25,8 +25,13 @@ class CheckMenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _title(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _title(),
+        ),
         _itemList(),
       ],
     );
@@ -36,11 +41,10 @@ class CheckMenuView extends StatelessWidget {
     Widget _item(CheckMenuItem item) {
       return Row(
         children: [
-          Radio(
-            value: false,
-            groupValue: 0,
+          Checkbox(
+            value: item.check,
             onChanged: (value) {
-              print(value);
+              item.onTap();
             },
           ),
           Text(item.desc)
@@ -48,15 +52,16 @@ class CheckMenuView extends StatelessWidget {
       );
     }
 
-    return Column(children: itemList.map(_item).toList());
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: itemList.map(_item).toList());
   }
 
   Widget _title() {
     return SizedBox(
-      width: titleWidth,
+      width: titleWidth + 8,
       child: Text(
-        title + ": ",
-        textAlign: TextAlign.end,
+        title + " :",
       ),
     );
   }

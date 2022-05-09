@@ -6,6 +6,8 @@ mixin WindonwHelperMixin {
     doWhenWindowReady(() {
       final _w = appWindow;
       _w.size = size;
+      _w.minSize = size;
+      // _w.hide();
     });
   }
 

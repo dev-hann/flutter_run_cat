@@ -10,13 +10,17 @@ class GeneralView extends MenuView<GeneralViewModel> {
   @override
   Widget contents() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: CheckMenuView(
-            title: viewModel.runnerTitle,
-            titleWidth: viewModel.maxTitleWidth,
-            itemList: viewModel.runnerItemList,
-          ),
+        // CheckMenuView(
+          // title: viewModel.runnerTitle,
+          // titleWidth: viewModel.maxTitleWidth,
+          // itemList: viewModel.runnerItemList,
+        // ),
+        CheckMenuView(
+          title: viewModel.startUpTitle,
+          titleWidth: viewModel.maxTitleWidth,
+          itemList: viewModel.startUpItemList,
         ),
       ],
     );

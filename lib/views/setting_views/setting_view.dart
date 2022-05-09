@@ -1,5 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_run_cat/consts.dart';
 import 'package:flutter_run_cat/theme.dart';
 import 'package:tuple/tuple.dart';
 import 'menu_views/menu_view.dart';
@@ -92,16 +93,19 @@ class _StateSettingView extends State<SettingView>
 
   Widget _menuView() {
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: 300,
-        maxWidth: 300,
+      constraints: const BoxConstraints(
+        maxHeight: windowMinHeight / 2,
+        maxWidth: windowMinWidth,
       ),
-      child: TabBarView(
-        controller: _viewModel.tabController,
-        children: [
-          GeneralView(),
-          Text("!!!"),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: TabBarView(
+          controller: _viewModel.tabController,
+          children: [
+            GeneralView(),
+            Text("!!!"),
+          ],
+        ),
       ),
     );
   }

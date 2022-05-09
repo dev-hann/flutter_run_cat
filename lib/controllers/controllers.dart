@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter_app_indicator/flutter_app_indicator.dart';
+import 'package:flutter_run_cat/consts.dart';
 import 'package:flutter_run_cat/models/setting.dart';
 import 'package:flutter_run_cat/repos/setting_repo/setting_impl.dart';
 import 'package:flutter_run_cat/repos/system_repo/system_impl.dart';

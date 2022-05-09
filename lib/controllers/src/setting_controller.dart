@@ -27,7 +27,7 @@ class SettingController extends Controller
 
   @override
   Future onReady() async {
-    initWindow(const Size(600, 450));
+    initWindow(const Size(windowMinWidth, windowMinHeight));
     await super.onReady();
   }
 

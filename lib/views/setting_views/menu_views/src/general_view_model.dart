@@ -12,25 +12,37 @@ class GeneralViewModel extends MenuViewModel {
 
   final String runnerTitle = "Runner";
 
-  List<CheckMenuItem> get runnerItemList => _menuList[runnerTitle] ?? [];
+  List<CheckMenuItem> get runnerItemList {
+    return [
+      CheckMenuItem(
+        check: setting.invert,
+        desc: "Invert (The lighter CPU loads, the faster th speed)",
+        onTap: () {
+          setting.invert = !setting.invert;
+          updateView();
+        },
+      ),
+    ];
+  }
 
-  final String startUpKey = "Startup";
+  final String startUpTitle = "Startup";
 
-  Map<String, List<CheckMenuItem>> get _menuList {
-    return {
-      runnerTitle: [
-        CheckMenuItem(
-          check: setting.invert,
-          desc: "Inver Desc",
-          onTap: () {},
-        ),
-      ]
-    };
+  List<CheckMenuItem> get startUpItemList {
+    return [
+      CheckMenuItem(
+        check: setting.startUp,
+        desc: "Launch RunCat at Login",
+        onTap: () {
+          setting.startUp = !setting.startUp;
+          updateView();
+        },
+      )
+    ];
   }
 
   double maxTitleWidth = 0;
 
   void _init() {
-    maxTitleWidth = computeMaxTitleWidth([runnerTitle, startUpKey]);
+    maxTitleWidth = computeMaxTitleWidth([runnerTitle, startUpTitle]);
   }
 }

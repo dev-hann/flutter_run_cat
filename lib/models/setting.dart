@@ -7,7 +7,7 @@ class Setting {
         hideRunnder = hideRunnder ?? false,
         startUp = startUp ?? true;
 
-  final bool invert;
-  final bool hideRunnder;
-  final bool startUp;
+  bool invert;
+  bool hideRunnder;
+  bool startUp;
 }

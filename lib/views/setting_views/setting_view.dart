@@ -92,20 +92,14 @@ class _StateSettingView extends State<SettingView>
   }
 
   Widget _menuView() {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxHeight: windowMinHeight / 2,
-        maxWidth: windowMinWidth,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: TabBarView(
-          controller: _viewModel.tabController,
-          children: [
-            GeneralView(),
-            Text("!!!"),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TabBarView(
+        controller: _viewModel.tabController,
+        children: [
+          GeneralView(),
+          Text("!!!"),
+        ],
       ),
     );
   }
@@ -117,10 +111,11 @@ class _StateSettingView extends State<SettingView>
         color: Colors.blue,
         width: 2,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             _appBar(),
             const Divider(height: 0),
-            _menuView(),
+            Expanded(child: _menuView()),
           ],
         ),
       ),

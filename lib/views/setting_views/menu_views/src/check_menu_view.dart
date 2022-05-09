@@ -22,39 +22,29 @@ class CheckMenuView extends StatelessWidget {
     required this.itemList,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: _title(),
-        ),
-        _itemList(),
-      ],
-    );
-  }
-
   Widget _itemList() {
     Widget _item(CheckMenuItem item) {
-      return Row(
-        children: [
-          Checkbox(
-            value: item.check,
-            onChanged: (value) {
-              item.onTap();
-            },
-          ),
-          Text(item.desc)
-        ],
+      return Flexible(
+        child: Row(
+          children: [
+            Checkbox(
+              value: item.check,
+              onChanged: (value) {
+                item.onTap();
+              },
+            ),
+            Expanded(child: Text(item.desc))
+          ],
+        ),
       );
     }
 
     return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: itemList.map(_item).toList());
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: itemList.map(_item).toList(),
+    );
   }
 
   Widget _title() {
@@ -62,6 +52,22 @@ class CheckMenuView extends StatelessWidget {
       width: titleWidth + 8,
       child: Text(
         title + " :",
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _title(),
+          ),
+          Expanded(child: _itemList()),
+        ],
       ),
     );
   }

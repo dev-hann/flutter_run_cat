@@ -102,7 +102,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "49797a94595f8219fbc0f66143af5a022ad353b8"
+      resolved-ref: "424d5e21d098188a255511abf5fb3f5864d875c9"
       url: "https://github.com/yoehwan/flutter_app_indicator.git"
     source: git
     version: "0.0.1"

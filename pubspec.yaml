@@ -26,8 +26,3 @@ flutter:
   uses-material-design: true
   assets:
     - assets/cat/
-    - assets/fonts/
-  # fonts:
-    # - family: TrayIcon
-      # fonts:
-        # - asset: assets/fonts/TrayIcon.ttf

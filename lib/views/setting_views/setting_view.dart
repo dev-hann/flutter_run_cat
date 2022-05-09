@@ -1,57 +1,113 @@
-library setting_view;
-
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_run_cat/controllers/controllers.dart';
-import 'package:get/get.dart';
+import 'package:flutter_run_cat/consts.dart';
+import 'package:flutter_run_cat/theme.dart';
+import 'package:tuple/tuple.dart';
+import 'menu_views/menu_view.dart';
+import 'setting_view_model.dart';
 
-import 'menu_views/menu_icon_view.dart';
+class SettingView extends StatefulWidget {
+  const SettingView({Key? key}) : super(key: key);
 
-part 'setting_view_model.dart';
+  @override
+  State<StatefulWidget> createState() {
+    return _StateSettingView();
+  }
+}
 
-class SettingView extends StatelessWidget {
-  SettingView({Key? key}) : super(key: key);
-
+class _StateSettingView extends State<SettingView>
+    with SingleTickerProviderStateMixin {
   final SettingViewModel _viewModel = SettingViewModel();
 
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.init(this);
+  }
+
   Widget _appBar() {
-    return WindowTitleBarBox(
-      child: Row(
-        children: [
-          Expanded(
-            child: MoveWindow(
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Run Cat"),
+    Widget _titleBar() {
+      return WindowTitleBarBox(
+        child: Row(
+          children: [
+            Expanded(
+              child: MoveWindow(
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Run Cat"),
+                ),
               ),
             ),
+            CloseWindowButton(
+              onPressed: _viewModel.onTapClose,
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget _menuIconView() {
+      Widget _tab(Tuple2<IconData, String> tuple) {
+        return Tab(
+          text: tuple.item2,
+          icon: Icon(tuple.item1),
+        );
+      }
+
+      return SizedBox(
+        width: _viewModel.menuLength * 100,
+        child: Theme(
+          data: ThemeData(
+            highlightColor: Colors.transparent,
           ),
-          CloseWindowButton(
-            onPressed: _viewModel.onTapClose,
+          child: TabBar(
+            labelColor: lightBlue,
+            unselectedLabelColor: lightGrey,
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            controller: _viewModel.tabController,
+            indicator: BoxDecoration(
+              color: lightGrey.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            tabs: _viewModel.iconList.map(_tab).toList(),
+          ),
+        ),
+      );
+    }
+
+    return Material(
+      elevation: 2,
+      color: black,
+      // shadowColor: lightBlack,
+      child: Column(
+        children: [
+          _titleBar(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: _menuIconView(),
           ),
         ],
       ),
     );
   }
 
-  Widget _menuIconView() {
-    return GetBuilder<SettingController>(
-      id: _viewModel.menuIconViewID,
-      builder: (_) {
-        return MenuIconView(
-          onTapIcon: (index) {},
-          selectedIndex: 0,
-        );
-      },
+  Widget _menuView() {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxHeight: windowMinHeight / 2,
+        maxWidth: windowMinWidth,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: TabBarView(
+          controller: _viewModel.tabController,
+          children: [
+            GeneralView(),
+            Text("!!!"),
+          ],
+        ),
+      ),
     );
-  }
-
-  Widget _menuBodyView() {
-    return GetBuilder<SettingController>(
-        id: _viewModel.menuBodyViewID,
-        builder: (_) {
-          return const MenuBodyView();
-        });
   }
 
   @override
@@ -63,9 +119,8 @@ class SettingView extends StatelessWidget {
         child: Column(
           children: [
             _appBar(),
-            _menuIconView(),
-            const Divider(),
-            _menuBodyView(),
+            const Divider(height: 0),
+            _menuView(),
           ],
         ),
       ),

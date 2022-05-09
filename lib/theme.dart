@@ -23,6 +23,11 @@ ThemeData get customThemeData => ThemeData(
       dividerTheme: const DividerThemeData(
         thickness: 1,
       ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateProperty.all(lightBlue),
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      ),
     );
 
 const darkGrey = Color(0xFF1b2226);

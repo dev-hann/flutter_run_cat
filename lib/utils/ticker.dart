@@ -1,36 +1,39 @@
 import 'dart:async';
 
-typedef TickerCallback = Function(int tick);
+typedef TickerCallback = Future Function(int tick);
 
 class Ticker {
-  Timer? _timer;
 
   Duration? _duration;
   TickerCallback? _onTick;
-
   void start({
     required Duration duration,
     required TickerCallback onTick,
   }) {
-    if (_timer != null) return;
     _onTick = onTick;
     _duration = duration;
-    _timer = Timer.periodic(duration, (_t) {
-      onTick(_t.tick);
-    });
+    _trigger = true;
+    _run();
+  }
+
+  bool _trigger = false;
+  int _tick = 0;
+
+  void _run() async {
+    while (_trigger) {
+      if (_onTick == null || _duration == null) return;
+      await _onTick!(_tick);
+      await Future.delayed(_duration!);
+      _tick++;
+    }
   }
 
   void update({Duration? duration, TickerCallback? onTick}) {
-    if (_timer == null) return;
-    dispose();
     start(duration: duration ?? _duration!, onTick: onTick ?? _onTick!);
   }
 
   void dispose() {
-    if (_timer == null) return;
-    if (_timer!.isActive) {
-      _timer!.cancel();
-    }
-    _timer = null;
+    _trigger=false;
+    _tick = 0;
   }
 }

@@ -13,14 +13,16 @@ class GeneralView extends MenuView<GeneralViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // CheckMenuView(
-          // title: viewModel.runnerTitle,
-          // titleWidth: viewModel.maxTitleWidth,
-          // itemList: viewModel.runnerItemList,
+        // title: viewModel.runnerTitle,
+        // titleWidth: viewModel.maxTitleWidth,
+        // itemList: viewModel.runnerItemList,
         // ),
-        CheckMenuView(
-          title: viewModel.startUpTitle,
-          titleWidth: viewModel.maxTitleWidth,
-          itemList: viewModel.startUpItemList,
+        Expanded(
+          child: CheckMenuView(
+            title: viewModel.startUpTitle,
+            titleWidth: viewModel.maxTitleWidth,
+            itemList: viewModel.startUpItemList,
+          ),
         ),
       ],
     );

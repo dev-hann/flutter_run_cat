@@ -1,5 +1,7 @@
 part of controllers;
 
+const _defaultDuration = Duration(milliseconds: 200);
+
 /// TODO: appIndicator make that be able to receive raw data of Icon, no path.
 /// It can be save cpu, but can be need more memory?
 class TrayController extends Controller
@@ -36,14 +38,12 @@ class TrayController extends Controller
   /// Ticker
   final t.Ticker _iconTicker = t.Ticker();
   Duration _iconDuration(double cpuUsage) {
-    print(cpuUsage.toInt());
-    return Duration(milliseconds: 200);
+    return _defaultDuration - Duration(milliseconds: cpuUsage.toInt());
   }
 
   final t.Ticker _systemTicker = t.Ticker();
   void initTicker() {
-    _iconTicker.start(
-        duration: Duration(milliseconds: 200), onTick: onIconTick);
+    _iconTicker.start(duration: _defaultDuration, onTick: onIconTick);
     _systemTicker.start(duration: Duration(seconds: 3), onTick: onSystemTick);
   }
 
@@ -54,7 +54,7 @@ class TrayController extends Controller
   Future onSystemTick(int index) async {
     final system = currentSystem;
     await _indicator.setLabel(_label(system));
-    // _iconTicker.update(duration: _iconDuration(system.cpuAverage));
+    _iconTicker.update(duration: _iconDuration(system.cpuAverage));
   }
 
   @override

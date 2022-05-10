@@ -10,6 +10,13 @@ class TrayController extends Controller
   final TrayView _trayView = TrayView('assets/cat/');
   final SystemUseCase _systemUseCase = SystemUseCase(SystemImpl());
   System get currentSystem => _systemUseCase.loadSystem();
+
+  SystemSetting get systemSetting {
+    final _res = loadSetting(SettingType.systemInfo.index);
+    if (_res == null) return SystemSetting();
+    return _res as SystemSetting;
+  }
+
   @override
   Future onReady() async {
     await super.onReady();
@@ -32,7 +39,10 @@ class TrayController extends Controller
   }
 
   String _label(System system) {
-    return _trayView.label(system);
+    return _trayView.label(
+      cpu: system.cpuAverage.toInt(),
+      memory: systemSetting.memTray ? system.memory.toInt() : null,
+    );
   }
 
   /// Ticker
@@ -64,6 +74,8 @@ class TrayController extends Controller
 
   @override
   void settingListener(int typeIndex) {
-    print("updated Setting");
+    if (typeIndex == SettingType.systemInfo.index) {
+      _indicator.setLabel(_label(currentSystem));
+    }
   }
 }

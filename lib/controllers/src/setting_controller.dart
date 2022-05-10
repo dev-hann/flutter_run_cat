@@ -43,8 +43,6 @@ class SettingController extends Controller
 
   @override
   void settingListener(int typeIndex) {
-    print(typeIndex);
-    print("@@@");
   }
 
   /// View

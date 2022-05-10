@@ -11,7 +11,7 @@ class SettingImpl extends SettingRepo {
 
   @override
   Future<bool> updateSetting(int typeIndex, Map<String, dynamic> data) async {
-    notifyListeners(typeIndex);
+    // notifyListeners(typeIndex);
     return _box.update(typeIndex, data);
   }
 
@@ -24,13 +24,15 @@ class SettingImpl extends SettingRepo {
 
   @override
   void addSettingListener(Function(int typeIndex) listener) {
-    if (listenerList.contains(listener)) return;
-    listenerList.add(listener);
+    // if (listenerList.contains(listener)) return;
+    // listenerList.add(listener);
+    _box.addListener(listener);
   }
 
   @override
   void removeSettingListener(Function(int typeIndex) listener) {
-    listenerList.remove(listener);
+    _box.removeListener(listener);
+    // listenerList.remove(listener);
   }
 
   void notifyListeners(int typeIndex) {

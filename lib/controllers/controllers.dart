@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:flutter_app_indicator/flutter_app_indicator.dart';
 import 'package:flutter_run_cat/consts.dart';
+import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
 import 'package:flutter_run_cat/models/system.dart';
 import 'package:flutter_run_cat/repos/setting_repo/setting_impl.dart';

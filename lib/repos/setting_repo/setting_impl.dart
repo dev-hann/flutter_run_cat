@@ -6,6 +6,7 @@ class SettingImpl extends SettingRepo {
   @override
   Future init() async {
     await _box.openBox();
+    // await _box.clearBox();
   }
 
   @override

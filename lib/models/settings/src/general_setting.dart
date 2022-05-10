@@ -18,8 +18,10 @@ class GeneralSetting extends Setting {
   bool startUpLaunch;
   bool checkUpdate;
 
+  @override
   Map<String, dynamic> toMap() {
     return {
+      "typeIndex":typeIndex,
       "invert": invert,
       "hideRunnder": hideRunnder,
       "startUpLaunch": startUpLaunch,

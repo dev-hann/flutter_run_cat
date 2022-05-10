@@ -5,7 +5,11 @@ class GeneralViewModel extends MenuViewModel<GeneralSetting> {
   String get viewID => settingController.generalViewID;
 
   @override
-  GeneralSetting get loadSetting => GeneralSetting();
+  GeneralSetting get loadSetting {
+    final _res = settingController.loadSetting(SettingType.general.index);
+    if (_res == null) return GeneralSetting();
+    return _res as GeneralSetting;
+  }
 
   @override
   List<String> get titleList => [

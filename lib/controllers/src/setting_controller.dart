@@ -1,10 +1,14 @@
 part of controllers;
 
-mixin ListenableSettingMixin on Controller {
+mixin SettingHelperMixin on Controller {
   final SettingUseCase settingUseCase = SettingUseCase(SettingImpl());
 
   Setting? loadSetting(int typeIndex) {
     return settingUseCase.loadSetting(typeIndex);
+  }
+
+  Future<bool> updateSetting(Setting setting) {
+    return settingUseCase.updateSetting(setting);
   }
 
   @override
@@ -24,21 +28,24 @@ mixin ListenableSettingMixin on Controller {
 }
 
 class SettingController extends Controller
-    with ListenableSettingMixin, WindonwHelperMixin {
+    with SettingHelperMixin, WindonwHelperMixin {
   static SettingController find() => Get.find<SettingController>();
+
+  final Completer _completer = Completer();
+  Future get isLoading => _completer.future;
 
   @override
   Future onReady() async {
     initWindow(const Size(windowMinWidth, windowMinHeight));
     await super.onReady();
-  }
-
-  void updateSetting(Setting setting) {
-    print("Update Setting");
+    _completer.complete();
   }
 
   @override
-  void settingListener(int typeIndex) {}
+  void settingListener(int typeIndex) {
+    print(typeIndex);
+    print("@@@");
+  }
 
   /// View
   final String generalViewID = "generalViewID";

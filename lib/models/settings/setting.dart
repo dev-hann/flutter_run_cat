@@ -12,7 +12,7 @@ abstract class Setting {
 
   static Setting fromMap(dynamic map) {
     final _typeIndex = map["typeIndex"];
-    assert(_typeIndex == null);
+    assert(_typeIndex != null);
     final _type = SettingType.values[_typeIndex as int];
     switch (_type) {
       case SettingType.general:
@@ -21,4 +21,6 @@ abstract class Setting {
         return SystemSetting.fromMap(map);
     }
   }
+
+  Map<String, dynamic> toMap();
 }

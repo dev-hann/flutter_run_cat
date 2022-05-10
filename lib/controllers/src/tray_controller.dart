@@ -5,7 +5,7 @@ const _defaultDuration = Duration(milliseconds: 200);
 /// TODO: appIndicator make that be able to receive raw data of Icon, no path.
 /// It can be save cpu, but can be need more memory?
 class TrayController extends Controller
-    with ListenableSettingMixin, WindonwHelperMixin {
+    with SettingHelperMixin, WindonwHelperMixin {
   final FlutterAppIndicator _indicator = FlutterAppIndicator();
   final TrayView _trayView = TrayView('assets/cat/');
   final SystemUseCase _systemUseCase = SystemUseCase(SystemImpl());
@@ -38,7 +38,12 @@ class TrayController extends Controller
   /// Ticker
   final t.Ticker _iconTicker = t.Ticker();
   Duration _iconDuration(double cpuUsage) {
-    return _defaultDuration - Duration(milliseconds: cpuUsage.toInt());
+    try {
+      return _defaultDuration - Duration(milliseconds: cpuUsage.toInt());
+    } catch (e) {
+      print(e);
+      return _defaultDuration;
+    }
   }
 
   final t.Ticker _systemTicker = t.Ticker();

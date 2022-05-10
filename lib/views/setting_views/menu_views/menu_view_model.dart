@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/painting.dart';
 import 'package:flutter_run_cat/controllers/controllers.dart';
+import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
 import 'menu_view.dart';
 
@@ -28,6 +29,7 @@ abstract class MenuViewModel<T extends Setting> {
   bool get isLoading => _loadig;
 
   void _init() async {
+    await settingController.isLoading;
     setting = loadSetting;
     maxTitleWidth = computeMaxTitleWidth(titleList);
     _loadig = false;

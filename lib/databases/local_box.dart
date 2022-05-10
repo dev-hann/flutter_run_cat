@@ -11,4 +11,8 @@ abstract class LocalBox {
   Future openBox() async {
     box = await Hive.openBox(boxID);
   }
+
+  Future clearBox() async {
+    await box.clear();
+  }
 }

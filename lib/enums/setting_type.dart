@@ -1,0 +1,4 @@
+enum SettingType{
+  general,
+  systemInfo,
+}

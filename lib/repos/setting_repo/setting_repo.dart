@@ -1,10 +1,11 @@
-import 'package:flutter_run_cat/models/settings/setting.dart';
 import 'package:flutter_run_cat/repos/repo.dart';
 
-abstract class SettingRepo extends Repo<Setting> {
-  
-  Setting loadSetting();
+abstract class SettingRepo extends Repo {
+  void addSettingListener(Function(int typeIndex) listener);
 
-  Future updateSetting(Setting value);
-  
+  void removeSettingListener(Function(int typeIndex) listener);
+
+  dynamic loadSetting(int typeIndex);
+
+  Future<bool> updateSetting(int typeIndex, Map<String, dynamic> data);
 }

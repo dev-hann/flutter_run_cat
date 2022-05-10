@@ -1,5 +1,3 @@
-import 'package:flutter_run_cat/models/system.dart';
-
 class TrayView {
   TrayView(this.iconDir);
 
@@ -18,7 +16,14 @@ class TrayView {
     _count = 0;
   }
 
-  String label(System system) {
-      return " CPU: ${system.cpuAverage.toInt()}%  Memory: ${system.memory.toInt()}%";
+  String label({
+    required int cpu,
+    required int? memory,
+  }) {
+    String _res = "CPU: $cpu%";
+    if (memory != null) {
+      _res += " Memory: $memory%";
+    }
+    return _res;
   }
 }

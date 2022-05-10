@@ -31,6 +31,10 @@ class SettingController extends Controller
     await super.onReady();
   }
 
+  void updateSetting(Setting setting) {
+    print("Update Setting");
+  }
+
   @override
   void settingListener(Setting setting) {}
 
@@ -38,5 +42,11 @@ class SettingController extends Controller
   final String generalViewID = "generalViewID";
   void updateGeneralView() {
     update([generalViewID]);
+  }
+
+  final String systemInfoViewID = "systemInfoViewID";
+
+  void updateSystemInfoView() {
+    update([systemInfoViewID]);
   }
 }

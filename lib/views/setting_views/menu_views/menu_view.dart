@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'menu_view_model.dart';
 part 'src/check_menu_view.dart';
 part 'src/general_view.dart';
+part 'src/system_info_view.dart';
 
 abstract class MenuView<T extends MenuViewModel> extends StatelessWidget {
   const MenuView({
@@ -22,6 +23,7 @@ abstract class MenuView<T extends MenuViewModel> extends StatelessWidget {
     return GetBuilder<SettingController>(
       id: viewModel.viewID,
       builder: (_) {
+        if (viewModel.isLoading) return const SizedBox();
         return contents();
       },
     );

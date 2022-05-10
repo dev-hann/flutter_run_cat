@@ -9,7 +9,7 @@ class SettingViewModel {
 
   final List<Tuple2<IconData, String>> iconList = [
     const Tuple2(Icons.settings, "General"),
-    const Tuple2(Icons.run_circle, "System"),
+    const Tuple2(Icons.run_circle, "System Info"),
   ];
   int get menuLength => iconList.length;
   void init(TickerProvider vsync) {

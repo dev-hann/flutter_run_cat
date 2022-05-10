@@ -1,14 +1,17 @@
 part of menu_view_model;
 
-class GeneralViewModel extends MenuViewModel {
-  GeneralViewModel() {
-    _init();
-  }
-
-  final setting = Setting();
-
+class GeneralViewModel extends MenuViewModel<GeneralSetting> {
   @override
   String get viewID => settingController.generalViewID;
+
+  @override
+  GeneralSetting get loadSetting => GeneralSetting();
+
+  @override
+  List<String> get titleList => [
+        runnerTitle,
+        startUpTitle,
+      ];
 
   final String runnerTitle = "Runner";
 
@@ -18,8 +21,9 @@ class GeneralViewModel extends MenuViewModel {
         check: setting.invert,
         desc: "Invert (The lighter CPU loads, the faster th speed)",
         onTap: () {
-          setting.invert = !setting.invert;
-          updateView();
+          updateSetting((value) {
+            value.invert = !value.invert;
+          });
         },
       ),
     ];
@@ -30,19 +34,23 @@ class GeneralViewModel extends MenuViewModel {
   List<CheckMenuItem> get startUpItemList {
     return [
       CheckMenuItem(
-        check: setting.startUp,
+        check: setting.startUpLaunch,
         desc: "Launch RunCat at Login",
         onTap: () {
-          setting.startUp = !setting.startUp;
-          updateView();
+          updateSetting((value) {
+            value.startUpLaunch = !value.startUpLaunch;
+          });
+        },
+      ),
+      CheckMenuItem(
+        check: setting.checkUpdate,
+        desc: "Check for Update when Startup",
+        onTap: () {
+          updateSetting((value) {
+            value.checkUpdate = !value.checkUpdate;
+          });
         },
       )
     ];
-  }
-
-  double maxTitleWidth = 0;
-
-  void _init() {
-    maxTitleWidth = computeMaxTitleWidth([runnerTitle, startUpTitle]);
   }
 }

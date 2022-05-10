@@ -54,7 +54,7 @@ class _StateSettingView extends State<SettingView>
       }
 
       return SizedBox(
-        width: _viewModel.menuLength * 100,
+        width: _viewModel.menuLength * 130,
         child: Theme(
           data: ThemeData(
             highlightColor: Colors.transparent,
@@ -97,7 +97,7 @@ class _StateSettingView extends State<SettingView>
         controller: _viewModel.tabController,
         children: [
           GeneralView(),
-          Text("!!!"),
+          SystemInfoView(),
         ],
       ),
     );

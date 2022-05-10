@@ -5,6 +5,13 @@ class SystemInfoViewModel extends MenuViewModel<SystemSetting> {
   String get viewID => settingController.systemInfoViewID;
 
   @override
+  SystemSetting get loadSetting {
+    final _res = settingController.loadSetting(SettingType.systemInfo.index);
+    if (_res == null) return SystemSetting();
+    return _res as SystemSetting;
+  }
+
+  @override
   List<String> get titleList => [cpuTitle, memTitle];
   final String _activateText = "Activate";
   final String _menuText = "Show in the menu bar";
@@ -49,7 +56,4 @@ class SystemInfoViewModel extends MenuViewModel<SystemSetting> {
       ),
     ];
   }
-
-  @override
-  SystemSetting get loadSetting => SystemSetting();
 }

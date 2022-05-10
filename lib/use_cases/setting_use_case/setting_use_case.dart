@@ -16,6 +16,10 @@ class SettingUseCase extends UseCase<SettingRepo> {
   Setting? loadSetting(int typeIndex) {
     final _res = repo.loadSetting(typeIndex);
     if (_res == null) return null;
-    return SystemSetting.fromMap(_res);
+    return Setting.fromMap(_res);
+  }
+
+  Future<bool> updateSetting(Setting setting) {
+    return repo.updateSetting(setting.typeIndex, setting.toMap());
   }
 }

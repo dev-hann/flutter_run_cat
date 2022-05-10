@@ -15,8 +15,10 @@ class SystemSetting extends Setting {
   bool memTray;
   bool memMenu;
 
+  @override
   Map<String, dynamic> toMap() {
     return {
+      "typeIndex": typeIndex,
       "cpuMenu": cpuMenu,
       "memTray": memTray,
       "memMenu": memMenu,

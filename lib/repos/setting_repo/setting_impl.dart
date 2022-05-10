@@ -1,4 +1,4 @@
-import 'package:flutter_run_cat/models/setting.dart';
+import 'package:flutter_run_cat/models/settings/setting.dart';
 import 'package:flutter_run_cat/repos/setting_repo/setting_repo.dart';
 
 class SettingImpl extends SettingRepo {
@@ -8,11 +8,10 @@ class SettingImpl extends SettingRepo {
   }
 
   /// it will be replaced to DB.
-  Setting _tmpSetting = Setting();
+  GeneralSetting _tmpSetting = GeneralSetting();
 
   @override
   Future updateSetting(Setting value) async {
-    _tmpSetting = value;
     notifyModelListeners(value);
   }
 

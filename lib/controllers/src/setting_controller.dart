@@ -3,22 +3,24 @@ part of controllers;
 mixin ListenableSettingMixin on Controller {
   final SettingUseCase settingUseCase = SettingUseCase(SettingImpl());
 
-  Setting get loadSetting => settingUseCase.loadSetting();
+  Setting? loadSetting(int typeIndex) {
+    return settingUseCase.loadSetting(typeIndex);
+  }
 
   @override
   Future onReady() async {
     super.onReady();
     await settingUseCase.init();
-    settingUseCase.addModelListener(settingListener);
+    settingUseCase.addSettingListener(settingListener);
   }
 
   @override
   void onClose() {
-    settingUseCase.removeModelListener(settingListener);
+    settingUseCase.removeSettingListener(settingListener);
     super.onClose();
   }
 
-  void settingListener(Setting setting);
+  void settingListener(int typeIndex);
 }
 
 class SettingController extends Controller
@@ -36,7 +38,7 @@ class SettingController extends Controller
   }
 
   @override
-  void settingListener(Setting setting) {}
+  void settingListener(int typeIndex) {}
 
   /// View
   final String generalViewID = "generalViewID";

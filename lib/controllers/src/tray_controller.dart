@@ -58,7 +58,7 @@ class TrayController extends Controller
   }
 
   @override
-  void settingListener(Setting setting) {
+  void settingListener(int typeIndex) {
     print("updated Setting");
   }
 }

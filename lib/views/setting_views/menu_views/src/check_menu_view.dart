@@ -60,16 +60,19 @@ class CheckMenuView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
       fit: FlexFit.loose,
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _title(),
-            ),
-            Expanded(child: _itemList()),
-          ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _title(),
+              ),
+              Expanded(child: _itemList()),
+            ],
+          ),
         ),
       ),
     );

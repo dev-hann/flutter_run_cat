@@ -7,11 +7,21 @@ class System {
   final double memory;
 
   int get cpuAverage {
+    final _res = cpuList.fold<double>(0, _sum) / cpuList.length;
     try {
-      return cpuList.fold<double>(0, (double a, double b) => a + b) ~/
-              cpuList.length;
+      return _res.toInt();
     } catch (e) {
+      print(e);
       return 0;
     }
+  }
+
+  double _sum(double a, double b) {
+    double _checkNum(double value) {
+      if (value.isNaN || value.isInfinite) return 0;
+      return value;
+    }
+
+    return _checkNum(a) + _checkNum(b);
   }
 }

@@ -98,6 +98,7 @@ class _StateSettingView extends State<SettingView>
         children: [
           GeneralView(),
           SystemInfoView(),
+          VersionView(),
         ],
       ),
     );

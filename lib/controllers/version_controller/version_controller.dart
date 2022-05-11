@@ -1,0 +1,28 @@
+import 'package:flutter_run_cat/controllers/controllers.dart';
+import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
+import 'package:flutter_run_cat/enums/setting_type.dart';
+import 'package:flutter_run_cat/models/settings/setting.dart';
+
+class VersionController extends Controller with SettingHelperMixin {
+  @override
+  Future onReady() async {
+    await super.onReady();
+    _init();
+  }
+
+  String currentVersion = "";
+  bool hasUpdate = false;
+  void _init() async {
+    final _setting = loadSetting(SettingType.general.index);
+
+    if (_setting != null) {
+      final _generalSetting = _setting as GeneralSetting;
+      if (!_generalSetting.checkUpdate) return;
+    }
+  }
+  
+  void updateVersion() {}
+
+  @override
+  void settingListener(int typeIndex) {}
+}

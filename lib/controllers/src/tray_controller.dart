@@ -9,9 +9,8 @@ class TrayController extends Controller
     with SettingHelperMixin, WindonwHelperMixin {
   final FlutterAppIndicator _indicator = FlutterAppIndicator();
   final TrayView _trayView = TrayView('assets/cat/');
-  final SystemUseCase _systemUseCase = SystemUseCase(SystemImpl());
-  System get loadSystem => _systemUseCase.loadSystem();
-
+  final SystemHelper _systemHelper = SystemHelper();
+  System get loadSystem => _systemHelper.system;
   SystemSetting get loadSystemSetting {
     final _res = loadSetting(SettingType.systemInfo.index);
     if (_res == null) return SystemSetting();
@@ -27,7 +26,6 @@ class TrayController extends Controller
   @override
   Future onReady() async {
     await super.onReady();
-    await _systemUseCase.init();
     await _initTray();
     initTicker();
   }
@@ -54,14 +52,16 @@ class TrayController extends Controller
     final _systemSetting = loadSystemSetting;
 
     return _trayView.label(
-      cpu:_system.cpuAverage,
+      cpu: _system.cpuAverage,
       memory: _systemSetting.memTray ? _system.memory.toInt() : null,
     );
   }
 
   /// Ticker
   final t.Ticker _iconTicker = t.Ticker();
-  Duration _iconDuration(int cpuUsage) {
+  Duration _iconDuration() {
+    final _system = loadSystem;
+    final cpuUsage = _system.cpuAverage;
     try {
       final _generalSetting = loadGeneralSetting;
       final _isInvert = _generalSetting.invert;
@@ -81,7 +81,7 @@ class TrayController extends Controller
   final t.Ticker _systemTicker = t.Ticker();
   void initTicker() {
     _iconTicker.start(duration: _defaultIconDuration, onTick: onIconTick);
-    _systemTicker.start(duration: Duration(seconds: 3), onTick: onSystemTick);
+    _systemTicker.start(duration: Duration(seconds: 1), onTick: onSystemTick);
   }
 
   Future onIconTick(_) async {
@@ -89,19 +89,16 @@ class TrayController extends Controller
   }
 
   Future onSystemTick(int index) async {
-    final system = loadSystem;
     await _indicator.setLabel(_label());
-    _iconTicker.update(duration: _iconDuration(system.cpuAverage));
+    _iconTicker.update(duration: _iconDuration());
   }
 
   @override
   void settingListener(int typeIndex) {
     final type = SettingType.values[typeIndex];
-    final system = loadSystem;
     switch (type) {
       case SettingType.general:
-        print(loadGeneralSetting.hideLabel);
-        _iconTicker.update(duration: _iconDuration(system.cpuAverage));
+        _iconTicker.update(duration: _iconDuration());
         _indicator.setLabel(_label());
         break;
       case SettingType.systemInfo:

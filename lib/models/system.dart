@@ -6,8 +6,12 @@ class System {
   final List<double> cpuList;
   final double memory;
 
-  double get cpuAverage {
-    return cpuList.fold<double>(0, (double a, double b) => a + b) /
-        cpuList.length;
+  int get cpuAverage {
+    try {
+      return cpuList.fold<double>(0, (double a, double b) => a + b) ~/
+              cpuList.length;
+    } catch (e) {
+      return 0;
+    }
   }
 }

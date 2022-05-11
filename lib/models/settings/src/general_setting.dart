@@ -4,9 +4,11 @@ class GeneralSetting extends Setting {
   GeneralSetting({
     bool? invert,
     bool? hideRunnder,
+    bool? hideLabel,
     bool? startUpLaunch,
     bool? checkUpdate,
-  })  : checkUpdate = checkUpdate ?? true,
+  })  : hideLabel = hideLabel ?? false,
+        checkUpdate = checkUpdate ?? true,
         invert = invert ?? false,
         hideRunnder = hideRunnder ?? false,
         startUpLaunch = startUpLaunch ?? true,
@@ -14,6 +16,7 @@ class GeneralSetting extends Setting {
 
   bool invert;
   bool hideRunnder;
+  bool hideLabel;
 
   bool startUpLaunch;
   bool checkUpdate;
@@ -21,9 +24,10 @@ class GeneralSetting extends Setting {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "typeIndex":typeIndex,
+      "typeIndex": typeIndex,
       "invert": invert,
       "hideRunnder": hideRunnder,
+      "hideLabel": hideLabel,
       "startUpLaunch": startUpLaunch,
       "checkUpdate": checkUpdate,
     };
@@ -34,6 +38,7 @@ class GeneralSetting extends Setting {
     return GeneralSetting(
       invert: _map['invert'],
       hideRunnder: _map['hideRunnder'],
+      hideLabel: _map['hideLabel'],
       startUpLaunch: _map['startUpLaunch'],
       checkUpdate: _map['checkUpdate'],
     );

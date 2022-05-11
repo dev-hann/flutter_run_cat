@@ -1,6 +1,7 @@
 part of controllers;
 
-const _defaultDuration = Duration(milliseconds: 200);
+const _defaultIconDuration = Duration(milliseconds: 200);
+const _defaultRevIconDuration = Duration(milliseconds: 100);
 
 /// TODO: appIndicator make that be able to receive raw data of Icon, no path.
 /// It can be save cpu, but can be need more memory?
@@ -9,12 +10,18 @@ class TrayController extends Controller
   final FlutterAppIndicator _indicator = FlutterAppIndicator();
   final TrayView _trayView = TrayView('assets/cat/');
   final SystemUseCase _systemUseCase = SystemUseCase(SystemImpl());
-  System get currentSystem => _systemUseCase.loadSystem();
+  System get loadSystem => _systemUseCase.loadSystem();
 
-  SystemSetting get systemSetting {
+  SystemSetting get loadSystemSetting {
     final _res = loadSetting(SettingType.systemInfo.index);
     if (_res == null) return SystemSetting();
     return _res as SystemSetting;
+  }
+
+  GeneralSetting get loadGeneralSetting {
+    final _res = loadSetting(SettingType.general.index);
+    if (_res == null) return GeneralSetting();
+    return _res as GeneralSetting;
   }
 
   @override
@@ -29,7 +36,7 @@ class TrayController extends Controller
     await _indicator.init(
       title: "runCat",
       iconPath: _trayView.nextIcon(),
-      label: _label(currentSystem),
+      label: _label(),
     );
     await _indicator.setMenu([
       MenuItem("Preference", showWindow),
@@ -38,27 +45,42 @@ class TrayController extends Controller
     ]);
   }
 
-  String _label(System system) {
+  String _label() {
+    final _generalSetting = loadGeneralSetting;
+    if (_generalSetting.hideLabel) {
+      return "";
+    }
+    final _system = loadSystem;
+    final _systemSetting = loadSystemSetting;
+
     return _trayView.label(
-      cpu: system.cpuAverage.toInt(),
-      memory: systemSetting.memTray ? system.memory.toInt() : null,
+      cpu:_system.cpuAverage,
+      memory: _systemSetting.memTray ? _system.memory.toInt() : null,
     );
   }
 
   /// Ticker
   final t.Ticker _iconTicker = t.Ticker();
-  Duration _iconDuration(double cpuUsage) {
+  Duration _iconDuration(int cpuUsage) {
     try {
-      return _defaultDuration - Duration(milliseconds: cpuUsage.toInt());
+      final _generalSetting = loadGeneralSetting;
+      final _isInvert = _generalSetting.invert;
+      final _duration =
+          _isInvert ? _defaultRevIconDuration : _defaultIconDuration;
+      final _gapDuration = Duration(milliseconds: cpuUsage);
+      if (_isInvert) {
+        return _duration + _gapDuration;
+      }
+      return _duration - _gapDuration;
     } catch (e) {
       print(e);
-      return _defaultDuration;
+      return _defaultIconDuration;
     }
   }
 
   final t.Ticker _systemTicker = t.Ticker();
   void initTicker() {
-    _iconTicker.start(duration: _defaultDuration, onTick: onIconTick);
+    _iconTicker.start(duration: _defaultIconDuration, onTick: onIconTick);
     _systemTicker.start(duration: Duration(seconds: 3), onTick: onSystemTick);
   }
 
@@ -67,15 +89,24 @@ class TrayController extends Controller
   }
 
   Future onSystemTick(int index) async {
-    final system = currentSystem;
-    await _indicator.setLabel(_label(system));
+    final system = loadSystem;
+    await _indicator.setLabel(_label());
     _iconTicker.update(duration: _iconDuration(system.cpuAverage));
   }
 
   @override
   void settingListener(int typeIndex) {
-    if (typeIndex == SettingType.systemInfo.index) {
-      _indicator.setLabel(_label(currentSystem));
+    final type = SettingType.values[typeIndex];
+    final system = loadSystem;
+    switch (type) {
+      case SettingType.general:
+        print(loadGeneralSetting.hideLabel);
+        _iconTicker.update(duration: _iconDuration(system.cpuAverage));
+        _indicator.setLabel(_label());
+        break;
+      case SettingType.systemInfo:
+        _indicator.setLabel(_label());
+        break;
     }
   }
 }

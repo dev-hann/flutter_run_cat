@@ -30,6 +30,24 @@ class GeneralViewModel extends MenuViewModel<GeneralSetting> {
           });
         },
       ),
+      CheckMenuItem(
+        check: setting.hideRunnder,
+        desc: "Hide Runnder",
+        onTap: () {
+          updateSetting((value) {
+            value.hideRunnder = !value.hideRunnder;
+          });
+        },
+      ),
+      CheckMenuItem(
+        check: setting.hideLabel,
+        desc: "Hide Label",
+        onTap: () {
+          updateSetting((value) {
+            value.hideLabel = !value.hideLabel;
+          });
+        },
+      ),
     ];
   }
 

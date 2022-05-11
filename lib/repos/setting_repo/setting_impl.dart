@@ -24,15 +24,12 @@ class SettingImpl extends SettingRepo {
 
   @override
   void addSettingListener(Function(int typeIndex) listener) {
-    // if (listenerList.contains(listener)) return;
-    // listenerList.add(listener);
     _box.addListener(listener);
   }
 
   @override
   void removeSettingListener(Function(int typeIndex) listener) {
     _box.removeListener(listener);
-    // listenerList.remove(listener);
   }
 
   void notifyListeners(int typeIndex) {

@@ -1,6 +1,6 @@
 part of menu_view_model;
 
-class GeneralViewModel extends MenuViewModel<GeneralSetting> {
+class GeneralViewModel extends CheckMenuViewModel<GeneralSetting> {
   @override
   String get viewID => settingController.generalViewID;
 

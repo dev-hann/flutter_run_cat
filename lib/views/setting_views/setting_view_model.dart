@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_run_cat/controllers/controllers.dart';
+import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
 import 'package:tuple/tuple.dart';
 
 class SettingViewModel {
@@ -10,6 +10,7 @@ class SettingViewModel {
   final List<Tuple2<IconData, String>> iconList = [
     const Tuple2(Icons.settings, "General"),
     const Tuple2(Icons.run_circle, "System Info"),
+    const Tuple2(Icons.update, "Version"),
   ];
   int get menuLength => iconList.length;
   void init(TickerProvider vsync) {

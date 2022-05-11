@@ -1,6 +1,6 @@
 part of menu_view_model;
 
-class SystemInfoViewModel extends MenuViewModel<SystemSetting> {
+class SystemInfoViewModel extends CheckMenuViewModel<SystemSetting> {
   @override
   String get viewID => settingController.systemInfoViewID;
 

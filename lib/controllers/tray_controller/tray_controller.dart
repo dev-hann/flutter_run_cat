@@ -1,4 +1,13 @@
-part of controllers;
+import 'package:flutter_app_indicator/flutter_app_indicator.dart';
+import 'package:flutter_run_cat/controllers/controllers.dart';
+import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
+import 'package:flutter_run_cat/enums/setting_type.dart';
+import 'package:flutter_run_cat/models/settings/setting.dart';
+import 'package:flutter_run_cat/models/system.dart';
+import 'package:flutter_run_cat/utils/system_helper.dart';
+import 'package:flutter_run_cat/utils/ticker.dart';
+import 'package:flutter_run_cat/utils/window_helper_mixin.dart';
+import 'package:flutter_run_cat/views/tray_view/tray_view.dart';
 
 const _defaultIconDuration = Duration(milliseconds: 200);
 const _defaultRevIconDuration = Duration(milliseconds: 100);
@@ -30,6 +39,12 @@ class TrayController extends Controller
     initTicker();
   }
 
+  @override
+  void onClose() {
+    disposeSetting();
+    super.onClose();
+  }
+
   Future _initTray() async {
     await _indicator.init(
       title: "runCat",
@@ -58,7 +73,7 @@ class TrayController extends Controller
   }
 
   /// Ticker
-  final t.Ticker _iconTicker = t.Ticker();
+  final Ticker _iconTicker = Ticker();
   Duration _iconDuration() {
     final _system = loadSystem;
     final cpuUsage = _system.cpuAverage;
@@ -78,7 +93,7 @@ class TrayController extends Controller
     }
   }
 
-  final t.Ticker _systemTicker = t.Ticker();
+  final Ticker _systemTicker = Ticker();
   void initTicker() {
     _iconTicker.start(duration: _defaultIconDuration, onTick: onIconTick);
     _systemTicker.start(duration: Duration(seconds: 1), onTick: onSystemTick);

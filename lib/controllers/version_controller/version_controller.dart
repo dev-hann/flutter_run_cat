@@ -38,7 +38,9 @@ class VersionController extends Controller with SettingHelperMixin {
     }
   }
 
-  void updateVersion() {}
+  void updateVersion() {
+    _useCase.updateVersion();
+  }
 
   @override
   void settingListener(int typeIndex) {}

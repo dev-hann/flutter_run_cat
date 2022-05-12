@@ -34,9 +34,9 @@ class TrayController extends Controller
 
   @override
   Future onReady() async {
-    await super.onReady();
     await _initTray();
     initTicker();
+    super.onReady();
   }
 
   @override

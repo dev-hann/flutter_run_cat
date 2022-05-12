@@ -7,18 +7,34 @@ class VersionView extends MenuView<VersionViewModel> {
           viewModel: VersionViewModel(),
         );
 
+  Widget _updateDesc() {
+    return Text(viewModel.updateDesc);
+  }
+
   @override
   Widget contents() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Version View"),
+        Text("current version : ${viewModel.appVersion}"),
+        Text("new version : ${viewModel.newVersion}"),
         ElevatedButton(
           onPressed: () {
             Get.dialog(Text("HEllo"));
           },
           child: Text("update"),
         )
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _updateDesc(),
+        contents(),
       ],
     );
   }

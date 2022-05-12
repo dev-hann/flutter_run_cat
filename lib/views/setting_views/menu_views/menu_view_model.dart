@@ -7,11 +7,13 @@ import 'package:flutter_run_cat/controllers/setting_controller/setting_controlle
 import 'package:flutter_run_cat/controllers/version_controller/version_controller.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
+import 'package:get/get.dart';
 import 'menu_view.dart';
+import 'src/version_view/update_alert_view.dart';
 
-part 'src/general_view_model.dart';
-part 'src/system_info_view_model.dart';
-part 'src/version_view_model.dart';
+part 'src/general_view/general_view_model.dart';
+part 'src/system_info_view/system_info_view_model.dart';
+part 'src/version_view/version_view_model.dart';
 
 abstract class MenuViewModel {
   MenuViewModel() {
@@ -29,14 +31,13 @@ abstract class MenuViewModel {
     await settingController.loading;
     ready();
   }
-  
+
   /// if dependency on 'setting', write here.
   /// wait for ready [SettingController].
-  void ready(){
+  void ready() {
     _loadig = false;
     updateView();
   }
-  
 
   void updateView() {
     settingController.update([viewID]);
@@ -48,7 +49,7 @@ abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel {
   T get loadSetting;
 
   @override
-  void ready(){
+  void ready() {
     maxTitleWidth = computeMaxTitleWidth(titleList);
     setting = loadSetting;
     super.ready();

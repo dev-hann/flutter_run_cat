@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'controllers/controllers.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   initControllers();

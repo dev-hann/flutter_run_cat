@@ -21,10 +21,10 @@ mixin SettingHelperMixin on Controller {
   }
 
   @override
-  Future onReady() async {
+  void onInit() async {
     await settingUseCase.init();
     settingUseCase.addSettingListener(settingListener);
-    super.onReady();
+    super.onInit();
   }
 
   void disposeSetting() {
@@ -37,11 +37,11 @@ mixin SettingHelperMixin on Controller {
 class SettingController extends Controller
     with SettingHelperMixin, WindonwHelperMixin {
   static SettingController find() => Get.find<SettingController>();
-
+  
   @override
-  Future onReady() async {
+  void onInit() {
     initWindow(const Size(windowMinWidth, windowMinHeight));
-    await super.onReady();
+    super.onInit();
   }
 
   @override

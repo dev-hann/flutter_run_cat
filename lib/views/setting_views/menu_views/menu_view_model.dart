@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/painting.dart';
 import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
+import 'package:flutter_run_cat/controllers/version_controller/version_controller.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
 import 'menu_view.dart';
@@ -23,12 +24,18 @@ abstract class MenuViewModel {
   bool _loadig = true;
   bool get isLoading => _loadig;
 
+  /// if has no dependency, write here.
   Future init() async {
     await settingController.loading;
+    ready();
+  }
+  
+  /// if dependency on 'setting', write here.
+  /// wait for ready [SettingController].
+  void ready(){
     _loadig = false;
     updateView();
   }
-  
   
 
   void updateView() {
@@ -40,13 +47,11 @@ abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel {
   late T setting;
   T get loadSetting;
 
-  //TODO: setting controller optimize..
   @override
-  Future init() async {
-    await settingController.loading;
+  void ready(){
     maxTitleWidth = computeMaxTitleWidth(titleList);
     setting = loadSetting;
-    await super.init();
+    super.ready();
   }
 
   List<String> get titleList;

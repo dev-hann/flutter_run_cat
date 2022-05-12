@@ -19,12 +19,16 @@ abstract class MenuView<T extends MenuViewModel> extends StatelessWidget {
   final T viewModel;
   Widget contents();
 
+  Widget loadingView() {
+    return SizedBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SettingController>(
       id: viewModel.viewID,
       builder: (_) {
-        if (viewModel.isLoading) return const SizedBox();
+        if (viewModel.isLoading) return loadingView();
         return contents();
       },
     );

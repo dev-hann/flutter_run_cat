@@ -20,8 +20,8 @@ class VersionView extends MenuView<VersionViewModel> {
         Text("current version : ${viewModel.appVersion}"),
         Text("new version : ${viewModel.newVersion}"),
         ElevatedButton(
-          onPressed: viewModel.onTapUpdate,
-          child: Text("update"),
+          onPressed: viewModel.onTapGit,
+          child: Text("Git Visit"),
         )
       ],
     );

@@ -38,8 +38,8 @@ class VersionController extends Controller with SettingHelperMixin {
     }
   }
 
-  void updateVersion() {
-    _useCase.updateVersion();
+  void visitGit() {
+    _useCase.visitGit();
   }
 
   @override

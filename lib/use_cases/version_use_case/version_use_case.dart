@@ -12,7 +12,7 @@ class VersionUseCase extends UseCase<VersionRepo> {
     return repo.newVersion();
   }
 
-  void updateVersion() {
-    repo.updateVersion();
+  void visitGit() {
+    repo.visitGit();
   }
 }

@@ -21,10 +21,8 @@ class VersionImpl extends VersionRepo {
     return _newVersion;
   }
 
-  final _tmpPath = "/tmp";
-
   @override
-  void updateVersion() {
+  void visitGit() {
     
   }
 }

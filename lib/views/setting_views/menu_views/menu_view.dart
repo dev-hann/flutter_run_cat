@@ -5,10 +5,10 @@ import 'package:flutter_run_cat/controllers/setting_controller/setting_controlle
 import 'package:get/get.dart';
 
 import 'menu_view_model.dart';
-part 'src/check_menu_view.dart';
-part 'src/general_view/general_view.dart';
-part 'src/system_info_view/system_info_view.dart';
-part 'src/version_view/version_view.dart';
+part 'check_menu_view.dart';
+part 'general_view/general_view.dart';
+part 'system_info_view/system_info_view.dart';
+part 'version_view/version_view.dart';
 
 abstract class MenuView<T extends MenuViewModel> extends StatelessWidget {
   const MenuView({

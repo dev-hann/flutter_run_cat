@@ -7,13 +7,11 @@ import 'package:flutter_run_cat/controllers/setting_controller/setting_controlle
 import 'package:flutter_run_cat/controllers/version_controller/version_controller.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
-import 'package:get/get.dart';
 import 'menu_view.dart';
-import 'src/version_view/update_alert_view.dart';
 
-part 'src/general_view/general_view_model.dart';
-part 'src/system_info_view/system_info_view_model.dart';
-part 'src/version_view/version_view_model.dart';
+part 'general_view/general_view_model.dart';
+part 'system_info_view/system_info_view_model.dart';
+part 'version_view/version_view_model.dart';
 
 abstract class MenuViewModel {
   MenuViewModel() {

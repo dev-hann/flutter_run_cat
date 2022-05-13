@@ -5,5 +5,5 @@ abstract class VersionRepo extends Repo {
 
   String newVersion();
 
-  void updateVersion();
+  void visitGit();
 }

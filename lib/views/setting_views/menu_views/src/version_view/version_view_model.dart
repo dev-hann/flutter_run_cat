@@ -15,11 +15,7 @@ class VersionViewModel extends MenuViewModel {
 
   final String updateDesc = "updateDesc";
 
-  void onTapUpdate() async {
-    final _res = await Get.dialog(const UpdateAlertView());
-    if (_res == null) return;
-    if(_res){
-      versionController.updateVersion();
-    }
+  void onTapGit() async {
+      versionController.visitGit();
   }
 }

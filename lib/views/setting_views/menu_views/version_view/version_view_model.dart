@@ -11,11 +11,14 @@ class VersionViewModel extends MenuViewModel {
   @override
   Future init() async {
     await versionController.loading;
+    super.init();
   }
+
+
 
   final String updateDesc = "updateDesc";
 
   void onTapGit() async {
-      versionController.visitGit();
+    versionController.visitGit();
   }
 }

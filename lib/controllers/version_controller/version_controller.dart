@@ -6,6 +6,7 @@ import 'package:flutter_run_cat/repos/version_repo/version_impl.dart';
 import 'package:flutter_run_cat/use_cases/version_use_case/version_use_case.dart';
 import 'package:get/get.dart';
 
+/// It Will be grow up to Version Updater in Future.
 class VersionController extends Controller with SettingHelperMixin {
   static VersionController find() => Get.find<VersionController>();
 
@@ -27,11 +28,9 @@ class VersionController extends Controller with SettingHelperMixin {
 
   String appVersion = "";
   String newVersion = "";
-  bool hasUpdate = false;
-
+  bool get hasUpdate=> appVersion!=newVersion;
   Future _init() async {
     final _setting = loadSetting(SettingType.general.index);
-
     if (_setting != null) {
       final _generalSetting = _setting as GeneralSetting;
       if (!_generalSetting.checkUpdate) return;

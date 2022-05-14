@@ -1,6 +1,7 @@
-import 'package:flutter_run_cat/models/system.dart';
 import 'package:flutter_run_cat/repos/repo.dart';
 
 abstract class SystemRepo extends Repo {
-  System loadSystem();
+  List<double> loadCpuList();
+  double loadMemory();
+  Map<String,dynamic> loadBattery();
 }

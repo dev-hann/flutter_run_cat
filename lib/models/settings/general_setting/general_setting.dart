@@ -1,5 +1,7 @@
 part of setting;
 
+
+
 class GeneralSetting extends Setting {
   GeneralSetting({
     bool? invert,
@@ -7,17 +9,19 @@ class GeneralSetting extends Setting {
     bool? hideLabel,
     bool? startUpLaunch,
     bool? checkUpdate,
-  })  : hideLabel = hideLabel ?? false,
-        checkUpdate = checkUpdate ?? true,
+  })  : 
+  hideLabel = hideLabel ?? false,
         invert = invert ?? false,
         hideRunnder = hideRunnder ?? false,
         startUpLaunch = startUpLaunch ?? true,
+        checkUpdate = checkUpdate ?? true,
         super(SettingType.general.index);
-
+  // Runner
   bool invert;
   bool hideRunnder;
   bool hideLabel;
 
+  // StartUp
   bool startUpLaunch;
   bool checkUpdate;
 
@@ -41,6 +45,23 @@ class GeneralSetting extends Setting {
       hideLabel: _map['hideLabel'],
       startUpLaunch: _map['startUpLaunch'],
       checkUpdate: _map['checkUpdate'],
+    );
+  }
+
+  @override
+  GeneralSetting coypWith({
+    bool? invert,
+    bool? hideRunnder,
+    bool? hideLabel,
+    bool? startUpLaunch,
+    bool? checkUpdate,
+  }) {
+    return GeneralSetting(
+      invert: invert ?? this.invert,
+      hideRunnder: hideRunnder ?? this.hideRunnder,
+      hideLabel: hideLabel ?? this.hideLabel,
+      startUpLaunch: startUpLaunch ?? this.startUpLaunch,
+      checkUpdate: checkUpdate ?? this.checkUpdate,
     );
   }
 }

@@ -1,10 +1,7 @@
-import 'package:flutter_run_cat/enums/general_ite_type.dart';
+part of setting;
 
-abstract class GeneralItem {
-  GeneralItem(this.typeIndex);
-  final int typeIndex;
-
-  GeneralItemType get type => GeneralItemType.values[typeIndex];
+abstract class GeneralItem extends SettingItem {
+  GeneralItem(int typeIndex) : super(typeIndex);
 }
 
 class GeneralRunnerItem extends GeneralItem {
@@ -15,7 +12,7 @@ class GeneralRunnerItem extends GeneralItem {
   })  : hideLabel = hideLabel ?? false,
         invert = invert ?? false,
         hideRunnder = hideRunnder ?? false,
-        super(GeneralItemType.runner.index);
+        super(SettingItemType.runner.index);
 
   bool invert;
   bool hideRunnder;
@@ -40,19 +37,54 @@ class GeneralRunnerItem extends GeneralItem {
   }
 
   @override
-  GeneralSetting coypWith({
+  GeneralRunnerItem copyWith({
     bool? invert,
     bool? hideRunnder,
     bool? hideLabel,
-    bool? startUpLaunch,
-    bool? checkUpdate,
   }) {
-    return GeneralSetting(
+    return GeneralRunnerItem(
       invert: invert ?? this.invert,
       hideRunnder: hideRunnder ?? this.hideRunnder,
       hideLabel: hideLabel ?? this.hideLabel,
+    );
+  }
+}
+
+class GeneralStartUpItem extends GeneralItem {
+  GeneralStartUpItem({
+    bool? startUpLaunch,
+    bool? checkUpdate,
+  })  : startUpLaunch = startUpLaunch ?? true,
+        checkUpdate = checkUpdate ?? true,
+        super(SettingItemType.startUp.index);
+
+  bool startUpLaunch;
+  bool checkUpdate;
+
+  @override
+  GeneralStartUpItem copyWith({
+    bool? startUpLaunch,
+    bool? checkUpdate,
+  }) {
+    return GeneralStartUpItem(
       startUpLaunch: startUpLaunch ?? this.startUpLaunch,
       checkUpdate: checkUpdate ?? this.checkUpdate,
     );
+  }
+
+  factory GeneralStartUpItem.fromMap(dynamic map) {
+    final _map = Map<String, dynamic>.from(map);
+    return GeneralStartUpItem(
+      startUpLaunch: _map["startUpLaunch"],
+      checkUpdate: _map["checkUpdate"],
+    );
+  }
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      "typeIndex": typeIndex,
+      "startUpLaunch": startUpLaunch,
+      "checkUpdate": checkUpdate,
+    };
   }
 }

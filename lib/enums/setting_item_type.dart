@@ -3,6 +3,7 @@ enum SettingItemType{
   runner,
   startUp,
   //SystemInfo
+  cpu,
   memory,
   battery,
   hdd,

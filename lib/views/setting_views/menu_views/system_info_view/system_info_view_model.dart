@@ -18,16 +18,15 @@ class SystemInfoViewModel extends CheckMenuViewModel<SystemSetting> {
 
   /// CPU
   final String cpuTitle = "CPU Usage";
-  
+
   List<CheckMenuItem> get cpuItemList {
+    final _item = setting.cpuItem;
     return [
       CheckMenuItem(
-        check: setting.cpuMenu,
+        check: _item.showMenu,
         desc: _menuText,
         onTap: () {
-          updateSetting((value) {
-            value.cpuMenu = !value.cpuMenu;
-          });
+          updateSetting(_item.copyWith(showMenu: !_item.showMenu));
         },
       )
     ];
@@ -37,28 +36,20 @@ class SystemInfoViewModel extends CheckMenuViewModel<SystemSetting> {
   final String memTitle = "Memory Performance";
 
   List<CheckMenuItem> get memItemList {
-    final _memItem = setting.memoryItem;
-    final _showTray = _memItem.showTray;
-    final _showMenu = _memItem.showMenu;
+    final _item = setting.memoryItem;
     return [
       CheckMenuItem(
-        check: _showTray,
+        check: _item.showTray,
         desc: _activateText,
         onTap: () {
-          updateSetting((value) {
-            final _item = _memItem.copyWith(showTray: !_showTray);
-            value.memoryItem = _item;
-          });
+          updateSetting(_item.copyWith(showTray: !_item.showTray));
         },
       ),
       CheckMenuItem(
-        check: _showMenu,
+        check: _item.showMenu,
         desc: _menuText,
         onTap: () {
-          updateSetting((value) {
-            final _item = _memItem.copyWith(showMenu: !_showMenu);
-            value.memoryItem = _item;
-          });
+          updateSetting(_item.copyWith(showMenu: !_item.showMenu));
         },
       ),
     ];
@@ -68,31 +59,50 @@ class SystemInfoViewModel extends CheckMenuViewModel<SystemSetting> {
   final String batteryTitle = "Battery State";
 
   List<CheckMenuItem> get batteryItemList {
+    final _item = setting.batteryItem;
     return [
       CheckMenuItem(
-        check: setting.memTray,
+        check: _item.showTray,
         desc: _activateText,
         onTap: () {
-          updateSetting((value) {
-            value.memTray = !value.memTray;
-          });
+          updateSetting(_item.copyWith(showTray: !_item.showTray));
         },
       ),
       CheckMenuItem(
-        check: setting.memMenu,
+        check: _item.showMenu,
         desc: _menuText,
         onTap: () {
-          updateSetting((value) {
-            value.memMenu = !value.memMenu;
-          });
+          updateSetting(_item.copyWith(showMenu: !_item.showMenu));
         },
       ),
     ];
   }
 
   @override
-  void updateSetting(SystemItem item) {
-    final _setting =setting;
-    
+  Future updateSetting(SettingItem item) async {
+    SystemSetting _res = setting;
+    SystemItem _item = item as SystemItem;
+    switch (item.type) {
+      case SettingItemType.runner:
+      case SettingItemType.startUp:
+        return;
+      case SettingItemType.cpu:
+        _res = _res.coypWith(cpuItem: _item);
+        break;
+      case SettingItemType.memory:
+        _res = _res.coypWith(memoryItem: _item);
+        break;
+      case SettingItemType.battery:
+        _res = _res.coypWith(batteryItem: _item);
+        break;
+      case SettingItemType.hdd:
+        break;
+      case SettingItemType.ethernet:
+        break;
+    }
+
+    await settingController.updateSetting(_res);
+    refreshSetting();
+    updateView();
   }
 }

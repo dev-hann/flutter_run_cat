@@ -3,11 +3,12 @@ import 'package:flutter_run_cat/controllers/controllers.dart';
 import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
-import 'package:flutter_run_cat/models/system.dart';
 import 'package:flutter_run_cat/utils/system_helper.dart';
 import 'package:flutter_run_cat/utils/ticker.dart';
 import 'package:flutter_run_cat/utils/window_helper_mixin.dart';
 import 'package:flutter_run_cat/views/tray_view/tray_view.dart';
+
+import '../../models/system/system.dart';
 
 const _defaultIconDuration = Duration(milliseconds: 200);
 const _defaultRevIconDuration = Duration(milliseconds: 100);
@@ -67,10 +68,12 @@ class TrayController extends Controller
     final _systemSetting = loadSystemSetting;
 
     return _trayView.label(
-      cpu: _system.cpuAverage,
-      memory:
-          _systemSetting.memoryItem.showTray ? _system.memory.toInt() : null,
-    );
+        cpu: _system.cpuAverage,
+        memory:
+            _systemSetting.memoryItem.showTray ? _system.memory.toInt() : null,
+        battery: _systemSetting.batteryItem.showTray
+            ? _system.battery.capacity
+            : null);
   }
 
   /// Ticker

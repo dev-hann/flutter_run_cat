@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_run_cat/models/system.dart';
+import 'package:flutter_run_cat/models/system/system.dart';
 import 'package:flutter_run_cat/repos/system_repo/system_impl.dart';
 import 'package:flutter_run_cat/use_cases/system_use_case/system_use_case.dart';
 
@@ -16,7 +16,11 @@ class SystemHelper {
     _initSystem();
   }
 
-  System system = System(cpuList: [0], memory: 0);
+  System system = System(
+    cpuList: [0],
+    memory: 0,
+    battery: Battery(capacity: 100, statusIndex: 0),
+  );
 
   final SystemUseCase _useCase = SystemUseCase(SystemImpl());
 

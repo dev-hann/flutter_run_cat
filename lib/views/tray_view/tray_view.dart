@@ -19,10 +19,14 @@ class TrayView {
   String label({
     required int cpu,
     required int? memory,
+    required int? battery,
   }) {
     String _res = "CPU: $cpu%";
     if (memory != null) {
       _res += " Memory: $memory%";
+    }
+    if (battery != null) {
+      _res += " Battery: $battery%";
     }
     return _res;
   }

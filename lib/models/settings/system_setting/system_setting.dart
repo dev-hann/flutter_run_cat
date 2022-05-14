@@ -2,25 +2,21 @@ part of setting;
 
 class SystemSetting extends Setting {
   SystemSetting({
-    bool? cpuMenu,
+    SystemItem? cpuItem,
     SystemItem? memoryItem,
     SystemItem? batteryItem,
-  })  : cpuMenu = cpuMenu ?? false,
-        batteryItem =
-            batteryItem ?? SystemItem(typeIndex: SystemItemType.battery.index),
-        memoryItem =
-            memoryItem ?? SystemItem(typeIndex: SystemItemType.memory.index),
+  })  : cpuItem = cpuItem ?? SystemItem.cpu(),
+        memoryItem = memoryItem ?? SystemItem.memory(),
+        batteryItem = batteryItem ?? SystemItem.battery(),
         super(SettingType.systemInfo.index);
-
-  final bool cpuTray = true;
-  bool cpuMenu;
+  SystemItem cpuItem;
   SystemItem memoryItem;
   SystemItem batteryItem;
   @override
   Map<String, dynamic> toMap() {
     return {
       "typeIndex": typeIndex,
-      "cpuMenu": cpuMenu,
+      "cpuItem": cpuItem.toMap(),
       "memoryItem": memoryItem.toMap(),
       "batteryItem": batteryItem.toMap(),
     };
@@ -29,7 +25,7 @@ class SystemSetting extends Setting {
   factory SystemSetting.fromMap(dynamic map) {
     final Map<String, dynamic> _map = Map<String, dynamic>.from(map);
     return SystemSetting(
-      cpuMenu: _map["cpuMenu"],
+      cpuItem: SystemItem.fromMap(_map["cpuItem"]),
       memoryItem: SystemItem.fromMap(_map["memoryItem"]),
       batteryItem: SystemItem.fromMap(_map["batteryItem"]),
     );
@@ -37,12 +33,12 @@ class SystemSetting extends Setting {
 
   @override
   SystemSetting coypWith({
-    bool? cpuMenu,
+    SystemItem? cpuItem,
     SystemItem? memoryItem,
     SystemItem? batteryItem,
   }) {
     return SystemSetting(
-      cpuMenu: cpuMenu ?? this.cpuMenu,
+      cpuItem: cpuItem ?? this.cpuItem,
       memoryItem: memoryItem ?? this.memoryItem,
       batteryItem: batteryItem ?? this.batteryItem,
     );

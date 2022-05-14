@@ -28,12 +28,12 @@ class VersionController extends Controller with SettingHelperMixin {
 
   String appVersion = "";
   String newVersion = "";
-  bool get hasUpdate=> appVersion!=newVersion;
+  bool get hasUpdate => appVersion != newVersion;
   Future _init() async {
     final _setting = loadSetting(SettingType.general.index);
     if (_setting != null) {
       final _generalSetting = _setting as GeneralSetting;
-      if (!_generalSetting.checkUpdate) return;
+      if (!_generalSetting.startUpItem.checkUpdate) return;
     }
   }
 

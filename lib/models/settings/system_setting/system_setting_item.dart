@@ -40,4 +40,35 @@ class SystemItem extends SettingItem {
       showMenu: _map["showMenu"],
     );
   }
+
+  factory SystemItem.cpu({
+    bool? showMenu,
+  }) {
+    return SystemItem(
+      typeIndex: SettingItemType.cpu.index,
+      showTray: true,
+      showMenu: showMenu,
+    );
+  }
+
+  factory SystemItem.memory({
+    bool? showMenu,
+    bool? showTray,
+  }) {
+    return SystemItem(
+      typeIndex: SettingItemType.memory.index,
+      showTray: showTray,
+      showMenu: showMenu,
+    );
+  }
+  factory SystemItem.battery({
+    bool? showMenu,
+    bool? showTray,
+  }) {
+    return SystemItem(
+      typeIndex: SettingItemType.battery.index,
+      showTray: showTray,
+      showMenu: showMenu,
+    );
+  }
 }

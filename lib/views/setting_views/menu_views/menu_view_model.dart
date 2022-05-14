@@ -5,9 +5,10 @@ import 'dart:math';
 import 'package:flutter/painting.dart';
 import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
 import 'package:flutter_run_cat/controllers/version_controller/version_controller.dart';
+import 'package:flutter_run_cat/enums/setting_item_type.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
-import 'package:flutter_run_cat/enums/system_item_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
+import 'package:flutter_run_cat/models/settings/setting_item.dart';
 import 'menu_view.dart';
 
 part 'general_view/general_view_model.dart';
@@ -46,11 +47,14 @@ abstract class MenuViewModel {
 abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel {
   late T setting;
   T get loadSetting;
+  void refreshSetting() {
+    setting = loadSetting;
+  }
 
   @override
   void ready() {
     maxTitleWidth = computeMaxTitleWidth(titleList);
-    setting = loadSetting;
+    refreshSetting();
     super.ready();
   }
 
@@ -71,5 +75,5 @@ abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel {
     return res;
   }
 
-  void updateSetting(SystemItem item);
+  Future updateSetting(SettingItem item);
 }

@@ -60,7 +60,7 @@ class TrayController extends Controller
 
   String _label() {
     final _generalSetting = loadGeneralSetting;
-    if (_generalSetting.hideLabel) {
+    if (_generalSetting.runnerItem.hideLabel) {
       return "";
     }
     final _system = loadSystem;
@@ -68,7 +68,8 @@ class TrayController extends Controller
 
     return _trayView.label(
       cpu: _system.cpuAverage,
-      memory: _systemSetting.memTray ? _system.memory.toInt() : null,
+      memory:
+          _systemSetting.memoryItem.showTray ? _system.memory.toInt() : null,
     );
   }
 
@@ -79,7 +80,7 @@ class TrayController extends Controller
     final cpuUsage = _system.cpuAverage;
     try {
       final _generalSetting = loadGeneralSetting;
-      final _isInvert = _generalSetting.invert;
+      final _isInvert = _generalSetting.runnerItem.invert;
       final _duration =
           _isInvert ? _defaultRevIconDuration : _defaultIconDuration;
       final _gapDuration = Duration(milliseconds: cpuUsage);

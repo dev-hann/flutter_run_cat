@@ -6,6 +6,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
 import 'package:flutter_run_cat/controllers/version_controller/version_controller.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
+import 'package:flutter_run_cat/enums/system_item_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
 import 'menu_view.dart';
 
@@ -70,9 +71,5 @@ abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel {
     return res;
   }
 
-  void updateSetting(Function(T value) callback) {
-    callback(setting);
-    settingController.updateSetting(setting);
-    updateView();
-  }
+  void updateSetting(SystemItem item);
 }

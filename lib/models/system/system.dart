@@ -1,8 +1,11 @@
 library system;
 
 import 'package:flutter_run_cat/enums/battery_state.dart';
+import 'package:flutter_run_cat/enums/system_item_type.dart';
 
+part 'system_item.dart';
 part 'battery.dart';
+part 'memory.dart';
 
 class System {
   System({
@@ -11,7 +14,7 @@ class System {
     required this.battery,
   });
   final List<double> cpuList;
-  final double memory;
+  final Memory memory;
   final Battery battery;
 
   int get cpuAverage {

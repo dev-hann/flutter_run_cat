@@ -19,7 +19,7 @@ class SystemImpl extends SystemRepo {
   }
 
   @override
-  double loadMemory() {
+  Map<String, dynamic> loadMemory() {
     return _service.loadMemory();
   }
 }

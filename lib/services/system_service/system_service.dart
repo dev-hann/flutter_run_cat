@@ -37,26 +37,21 @@ class SystemService {
     }
   }
 
-  double loadMemory() {
+  Map<String, dynamic> loadMemory() {
     try {
+      final _res = <String, dynamic>{};
       final _data = _loadData(memPath);
       final _list = _data.split('\n');
-      int _total = 0;
-      int _avail = 0;
       for (final item in _list) {
         final _itemList = item.split(":");
-        if (_itemList[0] == "MemTotal") {
-          final _value = _itemList[1].replaceAll("kB", "").trim();
-          _total = int.parse(_value);
-        } else if (_itemList[0] == "MemAvailable") {
-          final _value = _itemList[1].replaceAll("kB", "").trim();
-          _avail = int.parse(_value);
-        }
+        if (_itemList.length < 2) continue;
+        final label = _itemList[0];
+        final data = _itemList[1].replaceAll("kB", "").trim();
+        _res[label] = data;
       }
-      return (_total - _avail) / _total * 100;
+      return _res;
     } catch (e) {
-      print(e);
-      return 0;
+      return {};
     }
   }
 

@@ -12,29 +12,28 @@ class SystemHelper {
   factory SystemHelper() {
     return _systemHelper;
   }
-  SystemHelper._internal() {
-    _initSystem();
-  }
+  SystemHelper._internal();
 
-  System system = System(
-    cpuList: [0],
-    memory: 0,
-    battery: Battery(capacity: 100, statusIndex: 0),
-  );
+  late System system;
 
   final SystemUseCase _useCase = SystemUseCase(SystemImpl());
 
   late Timer _systemTimer;
 
-  bool _init = false;
-
-  void _initSystem() async {
-    if (_init) return;
-    _init = true;
-    await _useCase.init();
+  void _initTimer() {
     _systemTimer = Timer.periodic(_pollingDuration, (tick) {
       system = _useCase.loadSystem();
     });
+  }
+
+  bool _init = false;
+
+  Future init() async {
+    if (_init) return;
+    _init = true;
+    await _useCase.init();
+    system = _useCase.loadSystem();
+    _initTimer();
   }
 
   void dispose() {

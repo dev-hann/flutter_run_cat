@@ -34,6 +34,12 @@ class TrayController extends Controller
   }
 
   @override
+  void onInit() async {
+    await _systemHelper.init();
+    super.onInit();
+  }
+
+  @override
   Future onReady() async {
     await _initTray();
     initTicker();
@@ -68,12 +74,10 @@ class TrayController extends Controller
     final _systemSetting = loadSystemSetting;
 
     return _trayView.label(
-        cpu: _system.cpuAverage,
-        memory:
-            _systemSetting.memoryItem.showTray ? _system.memory.toInt() : null,
-        battery: _systemSetting.batteryItem.showTray
-            ? _system.battery.capacity
-            : null);
+      cpu: _system.cpuAverage,
+      memory: _system.memory.value(_systemSetting.memoryItem.showTray),
+      battery: _system.battery.value(_systemSetting.batteryItem.showTray),
+    );
   }
 
   /// Ticker

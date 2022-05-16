@@ -12,6 +12,8 @@ class Battery extends SystemItem {
   final int capacity;
 
   factory Battery.fromUbuntu(Map<String, dynamic> map) {
+    if (map.isEmpty) {
+    }
     final Map<String, dynamic> _map = Map<String, dynamic>.from(map);
     return Battery(
       statusIndex: _status(_map["POWER_SUPPLY_STATUS"]),

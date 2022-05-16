@@ -80,7 +80,6 @@ class SystemService {
       }
       return _res;
     } catch (e) {
-      print(e);
       return {};
     }
   }

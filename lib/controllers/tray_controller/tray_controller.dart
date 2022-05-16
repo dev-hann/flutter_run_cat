@@ -20,6 +20,7 @@ class TrayController extends Controller
   final FlutterAppIndicator _indicator = FlutterAppIndicator();
   final TrayView _trayView = TrayView('assets/cat/');
   final SystemHelper _systemHelper = SystemHelper();
+  int get cpuUsage => _systemHelper.cpuUsage();
   System get loadSystem => _systemHelper.system;
   SystemSetting get loadSystemSetting {
     final _res = loadSetting(SettingType.systemInfo.index);
@@ -72,19 +73,18 @@ class TrayController extends Controller
     }
     final _system = loadSystem;
     final _systemSetting = loadSystemSetting;
-
+    final _battery = _system.battery;
     return _trayView.label(
-      cpu: _system.cpuAverage,
+      cpu: cpuUsage,
       memory: _system.memory.value(_systemSetting.memoryItem.showTray),
-      battery: _system.battery.value(_systemSetting.batteryItem.showTray),
+      battteryStatus: _battery.statusIndex,
+      battery: _battery.value(_systemSetting.batteryItem.showTray),
     );
   }
 
   /// Ticker
   final Ticker _iconTicker = Ticker();
   Duration _iconDuration() {
-    final _system = loadSystem;
-    final cpuUsage = _system.cpuAverage;
     try {
       final _generalSetting = loadGeneralSetting;
       final _isInvert = _generalSetting.runnerItem.invert;

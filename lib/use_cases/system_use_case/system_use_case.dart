@@ -7,10 +7,15 @@ class SystemUseCase extends UseCase<SystemRepo> {
 
   System loadSystem() {
     return System(
-      cpuList: repo.loadCpuList(),
+      cpu: loadCpu(),
       memory: loadMemory(),
       battery: loadBattery(),
     );
+  }
+
+  Cpu loadCpu() {
+    final data = repo.loadCpuList();
+    return Cpu.fromUbuntu(data);
   }
 
   Battery loadBattery() {

@@ -14,7 +14,7 @@ class SystemImpl extends SystemRepo {
   }
 
   @override
-  List<double> loadCpuList() {
+  List<List<int>> loadCpuList() {
     return _service.loadCpu();
   }
 

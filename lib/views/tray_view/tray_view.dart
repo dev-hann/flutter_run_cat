@@ -1,3 +1,5 @@
+import 'package:flutter_run_cat/enums/battery_state.dart';
+
 class TrayView {
   TrayView(this.iconDir);
 
@@ -19,11 +21,31 @@ class TrayView {
   String label({
     required int cpu,
     required int? memory,
+    required int battteryStatus,
+    required int? battery,
   }) {
-    String _res = "CPU: $cpu%";
+    String _res = " CPU: $cpu%";
     if (memory != null) {
       _res += " Memory: $memory%";
     }
+    if (battery != null) {
+      _res += _batteryLabel(battteryStatus, battery);
+    }
     return _res;
+  }
+
+  String _batteryLabel(int status, int value) {
+    // final _type = BattteryStatus.values[status];
+    String _res = " Battery:";
+    // _res += "$status";
+    // switch (_type) {
+      // case BattteryStatus.disCharge:
+        // break;
+      // case BattteryStatus.charge:
+        // break;
+      // case BattteryStatus.notCharge:
+        // break;
+    // }
+    return _res + " $value%";
   }
 }

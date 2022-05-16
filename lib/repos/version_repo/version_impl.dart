@@ -1,5 +1,8 @@
 import 'package:flutter_run_cat/repos/version_repo/version_repo.dart';
 import 'package:flutter_run_cat/services/version_service/version_service.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+const String _gitPath = "https://github.com/yoehwan/flutter_run_cat";
 
 class VersionImpl extends VersionRepo {
   final VersionService _service = VersionService();
@@ -20,11 +23,9 @@ class VersionImpl extends VersionRepo {
   String newVersion() {
     return _newVersion;
   }
-
-  final _tmpPath = "/tmp";
-
+  
   @override
-  void updateVersion() {
-    
+  void visitGit() {
+    launchUrlString(_gitPath);
   }
 }

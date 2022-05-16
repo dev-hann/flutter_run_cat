@@ -14,7 +14,24 @@ class SystemHelper {
   }
   SystemHelper._internal();
 
-  late System system;
+  System? _historySystem;
+  System? _system;
+  System get system {
+    if (_system == null) {
+      _loadSystem();
+    }
+    return _system!;
+  }
+
+  int cpuUsage() {
+    if (_system == null || _historySystem == null) return 0;
+    return _system!.cpu.computeUsage(_historySystem!.cpu);
+  }
+
+  void _loadSystem() {
+    _historySystem = _system;
+    _system = _useCase.loadSystem();
+  }
 
   final SystemUseCase _useCase = SystemUseCase(SystemImpl());
 
@@ -22,7 +39,7 @@ class SystemHelper {
 
   void _initTimer() {
     _systemTimer = Timer.periodic(_pollingDuration, (tick) {
-      system = _useCase.loadSystem();
+      _loadSystem();
     });
   }
 
@@ -32,7 +49,7 @@ class SystemHelper {
     if (_init) return;
     _init = true;
     await _useCase.init();
-    system = _useCase.loadSystem();
+    _loadSystem();
     _initTimer();
   }
 

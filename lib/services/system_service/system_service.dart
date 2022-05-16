@@ -7,17 +7,17 @@ const batteryPath = "/sys/class/power_supply/BAT0/uevent";
 class SystemService {
   final _lastActivateList = <double>[];
   final _lastTotalList = <double>[];
-  List<double> loadCpu() {
+  List<double> loadCpuOld() {
     try {
       final _res = <double>[];
-      final _data = _loadData(cpuPath);
-      final _list = _data.split('\n').where((e) => e.contains("cpu")).toList();
+      final _itemList =
+          _loadDataList(cpuPath).where((e) => e.contains("cpu")).toList();
       if (_lastActivateList.isEmpty || _lastTotalList.isEmpty) {
-        _lastActivateList.addAll(List.filled(_list.length, 0.0));
-        _lastTotalList.addAll(List.filled(_list.length, 0.0));
+        _lastActivateList.addAll(List.filled(_itemList.length, 0.0));
+        _lastTotalList.addAll(List.filled(_itemList.length, 0.0));
       }
-      for (int index = 0; index < _list.length; index++) {
-        final cpu = _list[index];
+      for (int index = 0; index < _itemList.length; index++) {
+        final cpu = _itemList[index];
         final usageList = cpu.replaceAll("  ", " ").split(" ");
         final parseList = usageList.sublist(1).map((e) {
           return double.parse(e);
@@ -37,16 +37,28 @@ class SystemService {
     }
   }
 
+  List<List<int>> loadCpu() {
+    final List<List<int>> _res = [];
+    final _itemList =
+        _loadDataList(cpuPath).where((e) => e.contains("cpu")).toList();
+
+    for (final item in _itemList) {
+      final dataList =
+          item.split(" ").sublist(1).map((e) => int.tryParse(e) ?? 0).toList();
+      _res.add(dataList);
+    }
+    return _res;
+  }
+
   Map<String, dynamic> loadMemory() {
     try {
       final _res = <String, dynamic>{};
-      final _data = _loadData(memPath);
-      final _list = _data.split('\n');
-      for (final item in _list) {
-        final _itemList = item.split(":");
-        if (_itemList.length < 2) continue;
-        final label = _itemList[0];
-        final data = _itemList[1].replaceAll("kB", "").trim();
+      final _itemList = _loadDataList(memPath);
+      for (final item in _itemList) {
+        final _dataList = item.split(":");
+        if (_dataList.length < 2) continue;
+        final label = _dataList[0];
+        final data = _dataList[1].replaceAll("kB", "").trim();
         _res[label] = data;
       }
       return _res;
@@ -58,8 +70,7 @@ class SystemService {
   Map<String, dynamic> loadBattery() {
     try {
       final _res = <String, dynamic>{};
-      final _data = _loadData(batteryPath);
-      final _itemList = _data.split("\n");
+      final _itemList = _loadDataList(batteryPath);
       for (final item in _itemList) {
         final _split = item.split("=");
         if (_split.length < 2) continue;
@@ -75,7 +86,7 @@ class SystemService {
   }
 
   /// TODO:handel error
-  String _loadData(String path) {
-    return File(path).readAsStringSync();
+  List<String> _loadDataList(String path) {
+    return File(path).readAsStringSync().split("\n");
   }
 }

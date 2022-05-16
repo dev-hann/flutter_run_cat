@@ -5,15 +5,15 @@ import 'dart:math';
 import 'package:flutter/painting.dart';
 import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
 import 'package:flutter_run_cat/controllers/version_controller/version_controller.dart';
+import 'package:flutter_run_cat/enums/setting_item_type.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
-import 'package:get/get.dart';
+import 'package:flutter_run_cat/models/settings/setting_item.dart';
 import 'menu_view.dart';
-import 'src/version_view/update_alert_view.dart';
 
-part 'src/general_view/general_view_model.dart';
-part 'src/system_info_view/system_info_view_model.dart';
-part 'src/version_view/version_view_model.dart';
+part 'general_view/general_view_model.dart';
+part 'system_info_view/system_info_view_model.dart';
+part 'version_view/version_view_model.dart';
 
 abstract class MenuViewModel {
   MenuViewModel() {
@@ -47,11 +47,14 @@ abstract class MenuViewModel {
 abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel {
   late T setting;
   T get loadSetting;
+  void refreshSetting() {
+    setting = loadSetting;
+  }
 
   @override
   void ready() {
     maxTitleWidth = computeMaxTitleWidth(titleList);
-    setting = loadSetting;
+    refreshSetting();
     super.ready();
   }
 
@@ -72,9 +75,5 @@ abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel {
     return res;
   }
 
-  void updateSetting(Function(T value) callback) {
-    callback(setting);
-    settingController.updateSetting(setting);
-    updateView();
-  }
+  Future updateSetting(SettingItem item);
 }

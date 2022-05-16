@@ -3,11 +3,12 @@ import 'package:flutter_run_cat/controllers/controllers.dart';
 import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
-import 'package:flutter_run_cat/models/system.dart';
 import 'package:flutter_run_cat/utils/system_helper.dart';
 import 'package:flutter_run_cat/utils/ticker.dart';
 import 'package:flutter_run_cat/utils/window_helper_mixin.dart';
 import 'package:flutter_run_cat/views/tray_view/tray_view.dart';
+
+import '../../models/system/system.dart';
 
 const _defaultIconDuration = Duration(milliseconds: 200);
 const _defaultRevIconDuration = Duration(milliseconds: 100);
@@ -19,6 +20,7 @@ class TrayController extends Controller
   final FlutterAppIndicator _indicator = FlutterAppIndicator();
   final TrayView _trayView = TrayView('assets/cat/');
   final SystemHelper _systemHelper = SystemHelper();
+  int get cpuUsage => _systemHelper.cpuUsage();
   System get loadSystem => _systemHelper.system;
   SystemSetting get loadSystemSetting {
     final _res = loadSetting(SettingType.systemInfo.index);
@@ -30,6 +32,12 @@ class TrayController extends Controller
     final _res = loadSetting(SettingType.general.index);
     if (_res == null) return GeneralSetting();
     return _res as GeneralSetting;
+  }
+
+  @override
+  void onInit() async {
+    await _systemHelper.init();
+    super.onInit();
   }
 
   @override
@@ -60,26 +68,26 @@ class TrayController extends Controller
 
   String _label() {
     final _generalSetting = loadGeneralSetting;
-    if (_generalSetting.hideLabel) {
+    if (_generalSetting.runnerItem.hideLabel) {
       return "";
     }
     final _system = loadSystem;
     final _systemSetting = loadSystemSetting;
-
+    final _battery = _system.battery;
     return _trayView.label(
-      cpu: _system.cpuAverage,
-      memory: _systemSetting.memTray ? _system.memory.toInt() : null,
+      cpu: cpuUsage,
+      memory: _system.memory.value(_systemSetting.memoryItem.showTray),
+      battteryStatus: _battery.statusIndex,
+      battery: _battery.value(_systemSetting.batteryItem.showTray),
     );
   }
 
   /// Ticker
   final Ticker _iconTicker = Ticker();
   Duration _iconDuration() {
-    final _system = loadSystem;
-    final cpuUsage = _system.cpuAverage;
     try {
       final _generalSetting = loadGeneralSetting;
-      final _isInvert = _generalSetting.invert;
+      final _isInvert = _generalSetting.runnerItem.invert;
       final _duration =
           _isInvert ? _defaultRevIconDuration : _defaultIconDuration;
       final _gapDuration = Duration(milliseconds: cpuUsage);

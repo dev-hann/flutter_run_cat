@@ -4,7 +4,6 @@ import 'package:yaml/yaml.dart';
 
 const _pubYamlPath =
     "https://raw.githubusercontent.com/yoehwan/flutter_run_cat/main/pubspec.yaml";
-
 class VersionService {
   Future<String> appVersion() async {
     final _info = await PackageInfo.fromPlatform();

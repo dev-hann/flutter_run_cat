@@ -1,16 +1,29 @@
-# flutter_run_cat
+# Flutter Run Cat
+<img src="https://user-images.githubusercontent.com/54878755/168307289-a311194e-e531-4502-914a-5aa80ae37b3a.gif" width=100%>
 
-A new Flutter project.
+It's only for `linux`, System Monitor with `run cat` written by `Flutter`.
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
+## Future Work
+* Tray
+    * Chart View
 
-A few resources to get you started if this is your first Flutter project:
+* General
+    * Runner - Hide Runner
+    * StartUp - Auto Launch
+    * StartUp - Check Update 
+* System Info
+    *  Show Menubar
+    *  Bettery
+    *  HDD
+    *  Ethernet & WIFI
+* About
+    * More Info
+    * Update System
+* Registration (Add Custom Image)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+more more...more...
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Licenses
+MIT

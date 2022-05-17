@@ -15,8 +15,8 @@ It's only for **linux**, System Monitor with `run cat` written by `Flutter`.
     *  Show Menubar
     *  ~~Cpu~~
     *  ~~Memory~~
-    * ~~Bettery~~
-    *  HDD
+    *  ~~Bettery~~
+    *  ~~HDD~~
     *  Ethernet & WIFI
 * About
     * More Info

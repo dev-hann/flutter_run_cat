@@ -71,4 +71,14 @@ class SystemItem extends SettingItem {
       showMenu: showMenu,
     );
   }
+  factory SystemItem.disk({
+    bool? showMenu,
+    bool? showTray,
+  }) {
+    return SystemItem(
+      typeIndex: SettingItemType.disk.index,
+      showTray: showTray,
+      showMenu: showMenu,
+    );
+  }
 }

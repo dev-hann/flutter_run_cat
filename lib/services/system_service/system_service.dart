@@ -84,6 +84,11 @@ class SystemService {
     }
   }
 
+  List<int> loadDisk() {
+    final _res = Process.run("", []);
+    return [0, 0];
+  }
+
   /// TODO:handel error
   List<String> _loadDataList(String path) {
     return File(path).readAsStringSync().split("\n");

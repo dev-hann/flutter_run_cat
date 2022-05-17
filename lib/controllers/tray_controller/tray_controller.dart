@@ -79,6 +79,7 @@ class TrayController extends Controller
       memory: _system.memory.value(_systemSetting.memoryItem.showTray),
       battteryStatus: _battery.statusIndex,
       battery: _battery.value(_systemSetting.batteryItem.showTray),
+      disk: _system.disk.value(_systemSetting.diskItem.showTray),
     );
   }
 

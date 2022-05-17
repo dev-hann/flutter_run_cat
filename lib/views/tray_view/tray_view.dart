@@ -23,6 +23,7 @@ class TrayView {
     required int? memory,
     required int battteryStatus,
     required int? battery,
+    required int? disk,
   }) {
     String _res = " CPU: $cpu%";
     if (memory != null) {
@@ -30,6 +31,9 @@ class TrayView {
     }
     if (battery != null) {
       _res += _batteryLabel(battteryStatus, battery);
+    }
+    if (disk != null) {
+      _res += " Disk: $disk%";
     }
     return _res;
   }
@@ -39,12 +43,12 @@ class TrayView {
     String _res = " Battery:";
     // _res += "$status";
     // switch (_type) {
-      // case BattteryStatus.disCharge:
-        // break;
-      // case BattteryStatus.charge:
-        // break;
-      // case BattteryStatus.notCharge:
-        // break;
+    // case BattteryStatus.disCharge:
+    // break;
+    // case BattteryStatus.charge:
+    // break;
+    // case BattteryStatus.notCharge:
+    // break;
     // }
     return _res + " $value%";
   }

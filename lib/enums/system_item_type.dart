@@ -2,6 +2,6 @@ enum SystemItemType {
   cpu,
   memnory,
   battery,
-  hdd,
-  ethernet,
+  disk,
+  network,
 }

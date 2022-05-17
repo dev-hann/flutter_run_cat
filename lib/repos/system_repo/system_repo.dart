@@ -4,4 +4,5 @@ abstract class SystemRepo extends Repo {
   List<List<int>> loadCpuList();
   Map<String, dynamic> loadMemory();
   Map<String, dynamic> loadBattery();
+  List<int> loadDisk();
 }

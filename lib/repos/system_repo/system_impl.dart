@@ -22,4 +22,9 @@ class SystemImpl extends SystemRepo {
   Map<String, dynamic> loadMemory() {
     return _service.loadMemory();
   }
+
+  @override
+  List<int> loadDisk() {
+    return _service.loadDisk();
+  }
 }

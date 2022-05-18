@@ -8,6 +8,8 @@ part 'general_setting/general_setting.dart';
 part 'general_setting/general_setting_item.dart';
 part 'system_setting/system_setting.dart';
 part 'system_setting/system_setting_item.dart';
+part 'registration_setting/registration_setting.dart';
+part 'registration_setting/registration_setting_item.dart';
 
 abstract class Setting {
   Setting(this.typeIndex);
@@ -23,6 +25,8 @@ abstract class Setting {
         return GeneralSetting.fromMap(map);
       case SettingType.systemInfo:
         return SystemSetting.fromMap(map);
+      case SettingType.registration:
+        return RegistrationSetting.fromMap(map);
     }
   }
 

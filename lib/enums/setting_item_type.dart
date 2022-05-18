@@ -1,4 +1,4 @@
-enum SettingItemType{
+enum SettingItemType {
   //General
   runner,
   startUp,
@@ -8,4 +8,6 @@ enum SettingItemType{
   battery,
   hdd,
   ethernet,
+  //Registration
+  registration,
 }

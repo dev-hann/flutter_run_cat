@@ -9,6 +9,7 @@ part 'check_menu_view.dart';
 part 'general_view/general_view.dart';
 part 'system_info_view/system_info_view.dart';
 part 'version_view/version_view.dart';
+part 'registration_view/registration_view.dart';
 
 abstract class MenuView<T extends MenuViewModel> extends StatelessWidget {
   const MenuView({
@@ -20,7 +21,7 @@ abstract class MenuView<T extends MenuViewModel> extends StatelessWidget {
   Widget contents();
 
   Widget loadingView() {
-    return SizedBox();
+    return const SizedBox();
   }
 
   @override

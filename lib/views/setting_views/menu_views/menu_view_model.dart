@@ -16,19 +16,11 @@ part 'system_info_view/system_info_view_model.dart';
 part 'version_view/version_view_model.dart';
 part 'registration_view/registration_view_model.dart';
 
-abstract class MenuViewModel<T extends Setting> {
+abstract class MenuViewModel {
   MenuViewModel() {
     init();
   }
   final SettingController settingController = SettingController.find();
-
-  late T setting;
-
-  T get loadSetting;
-
-  void refreshSetting() {
-    setting = loadSetting;
-  }
 
   String get viewID;
 
@@ -38,7 +30,6 @@ abstract class MenuViewModel<T extends Setting> {
   /// if has no dependency, write here.
   Future init() async {
     await settingController.loading;
-    refreshSetting();
     ready();
   }
 
@@ -56,9 +47,20 @@ abstract class MenuViewModel<T extends Setting> {
   Future updateSetting(SettingItem item);
 }
 
+
+
 abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel<T> {
+  late T setting;
+
+  T get loadSetting;
+
+  void refreshSetting() {
+    setting = loadSetting;
+  }
+
   @override
   void ready() {
+    refreshSetting();
     maxTitleWidth = computeMaxTitleWidth(titleList);
     super.ready();
   }

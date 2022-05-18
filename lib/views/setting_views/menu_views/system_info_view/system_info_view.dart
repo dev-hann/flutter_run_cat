@@ -27,6 +27,11 @@ class SystemInfoView extends MenuView<SystemInfoViewModel> {
           titleWidth: viewModel.maxTitleWidth,
           itemList: viewModel.batteryItemList,
         ),
+        CheckMenuView(
+          title: viewModel.diskTitle,
+          titleWidth: viewModel.maxTitleWidth,
+          itemList: viewModel.disItemList,
+        ),
       ],
     );
   }

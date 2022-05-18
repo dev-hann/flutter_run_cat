@@ -6,8 +6,8 @@ enum SettingItemType {
   cpu,
   memory,
   battery,
-  hdd,
-  ethernet,
+  disk,
+  network,
   //Registration
   registration,
 }

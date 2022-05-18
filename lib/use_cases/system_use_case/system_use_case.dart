@@ -11,6 +11,7 @@ class SystemUseCase extends UseCase<SystemRepo> {
       cpu: loadCpu(),
       memory: loadMemory(),
       battery: loadBattery(),
+      disk: loadDisk(),
     );
   }
 
@@ -35,5 +36,13 @@ class SystemUseCase extends UseCase<SystemRepo> {
   Memory loadMemory() {
     final data = repo.loadMemory();
     return Memory.fromUbuntu(data);
+  }
+
+  Disk loadDisk() {
+    final data = repo.loadDisk();
+    if (data.length != 2) {
+      return Disk(available: 0, used: 0);
+    }
+    return Disk.fromUbuntu(data);
   }
 }

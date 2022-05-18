@@ -84,9 +84,25 @@ class SystemService {
     }
   }
 
+  /// return [available, used];
   List<int> loadDisk() {
-    final _res = Process.run("", []);
-    return [0, 0];
+    try {
+      final _res = Process.runSync("df", ["--total"]);
+      final stdOut = _res.stdout.toString();
+      final List<String> _dataList = stdOut.split("\n");
+      String _data = _dataList[_dataList.length - 2];
+      while (_data.contains("  ")) {
+        _data = _data.replaceAll("  ", " ");
+      }
+      return _data
+          .split(" ")
+          .sublist(2, 4)
+          .map((e) => int.tryParse(e) ?? 0)
+          .toList();
+    } catch (e) {
+      print(e);
+      return [0, 0];
+    }
   }
 
   /// TODO:handel error

@@ -21,4 +21,11 @@ class VersionViewModel extends MenuViewModel {
   void onTapGit() async {
     versionController.visitGit();
   }
+
+  @override
+  Setting get loadSetting => throw UnimplementedError();
+
+  @override
+  Future updateSetting(SettingItem item)async {
+  }
 }

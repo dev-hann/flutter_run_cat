@@ -7,14 +7,17 @@ part 'system_item.dart';
 part 'battery.dart';
 part 'memory.dart';
 part 'cpu.dart';
+part 'disk.dart';
 
 class System {
   System({
     required this.cpu,
     required this.memory,
     required this.battery,
+    required this.disk,
   });
   final Cpu cpu;
   final Memory memory;
   final Battery battery;
+  final Disk disk;
 }

@@ -1,5 +1,7 @@
 # Flutter Run Cat
-![flutter_run_cat](https://user-images.githubusercontent.com/54878755/168305896-ddcb9a0b-441e-47e3-beae-f0bc9f7b1672.gif)
+
+<img src="https://user-images.githubusercontent.com/54878755/168307289-a311194e-e531-4502-914a-5aa80ae37b3a.gif" width=100%>
+
 It's only for **linux**, System Monitor with `run cat` written by `Flutter`.
 
 ## Installation
@@ -15,8 +17,8 @@ It's only for **linux**, System Monitor with `run cat` written by `Flutter`.
     *  Show Menubar
     *  ~~Cpu~~
     *  ~~Memory~~
-    * ~~Bettery~~
-    *  HDD
+    *  ~~Bettery~~
+    *  ~~HDD~~
     *  Ethernet & WIFI
 * About
     * More Info

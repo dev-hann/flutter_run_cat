@@ -12,7 +12,11 @@ class SystemInfoViewModel extends CheckMenuViewModel<SystemSetting> {
   }
 
   @override
-  List<String> get titleList => [cpuTitle, memTitle];
+  List<String> get titleList => [
+        cpuTitle,
+        memTitle,
+        batteryTitle,
+      ];
   final String _activateText = "Activate";
   final String _menuText = "Show in the menu bar";
 
@@ -78,6 +82,28 @@ class SystemInfoViewModel extends CheckMenuViewModel<SystemSetting> {
     ];
   }
 
+  final diskTitle = "Disk Usage";
+
+  List<CheckMenuItem> get disItemList {
+    final _item = setting.diskItem;
+    return [
+      CheckMenuItem(
+        check: _item.showTray,
+        desc: _activateText,
+        onTap: () {
+          updateSetting(_item.copyWith(showTray: !_item.showTray));
+        },
+      ),
+      CheckMenuItem(
+        check: _item.showMenu,
+        desc: _menuText,
+        onTap: () {
+          updateSetting(_item.copyWith(showMenu: !_item.showMenu));
+        },
+      ),
+    ];
+  }
+
   @override
   Future updateSetting(SettingItem item) async {
     SystemSetting _res = setting;
@@ -95,9 +121,10 @@ class SystemInfoViewModel extends CheckMenuViewModel<SystemSetting> {
       case SettingItemType.battery:
         _res = _res.coypWith(batteryItem: _item);
         break;
-      case SettingItemType.hdd:
+      case SettingItemType.disk:
+        _res = _res.coypWith(diskItem: _item);
         break;
-      case SettingItemType.ethernet:
+      case SettingItemType.network:
         break;
     }
 

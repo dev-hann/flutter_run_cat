@@ -80,8 +80,8 @@ class GeneralViewModel extends CheckMenuViewModel<GeneralSetting> {
       case SettingItemType.cpu:
       case SettingItemType.memory:
       case SettingItemType.battery:
-      case SettingItemType.hdd:
-      case SettingItemType.ethernet:
+      case SettingItemType.disk:
+      case SettingItemType.network:
         return;
     }
     await settingController.updateSetting(_res);

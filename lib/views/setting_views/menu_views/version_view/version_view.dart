@@ -11,10 +11,8 @@ class VersionView extends MenuView<VersionViewModel> {
   Widget contents() {
     return Column(
       children: [
-        Text("Run Cat"),
+        Text("Run Cat", style: Get.textTheme.headline4),
         Text("Version : ${viewModel.appVersion}"),
-        Text("new version : ${viewModel.newVersion}"),
-        Text("License : MIT"),
         ElevatedButton(
           onPressed: viewModel.onTapGit,
           child: Text("Github"),

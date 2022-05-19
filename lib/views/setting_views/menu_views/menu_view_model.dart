@@ -47,9 +47,7 @@ abstract class MenuViewModel {
   Future updateSetting(SettingItem item);
 }
 
-
-
-abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel<T> {
+abstract class CheckMenuViewModel<T extends Setting> extends MenuViewModel {
   late T setting;
 
   T get loadSetting;

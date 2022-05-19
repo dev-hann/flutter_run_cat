@@ -22,4 +22,8 @@ class SettingUseCase extends UseCase<SettingRepo> {
   Future<bool> updateSetting(Setting setting) {
     return repo.updateSetting(setting.typeIndex, setting.toMap());
   }
+
+  void updateStartUpLaunch(bool value) {
+    repo.updateStartUpLaunch(value);
+  }
 }

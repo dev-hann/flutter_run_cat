@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=run_cat -d
+Exec=run_cat &
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

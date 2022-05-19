@@ -8,4 +8,6 @@ abstract class SettingRepo extends Repo {
   dynamic loadSetting(int typeIndex);
 
   Future<bool> updateSetting(int typeIndex, Map<String, dynamic> data);
+
+  void updateStartUpLaunch(bool value);
 }

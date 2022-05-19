@@ -56,9 +56,9 @@ runApp()
 	$OUTPUT/$APP_NAME &
 }
 
-#download
+download
 
-#unzip
+unzip
 
 addPath
 

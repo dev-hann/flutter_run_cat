@@ -43,14 +43,18 @@ addPath()
 	BASHRC="$HOME/.bashrc"
 
 	if ! grep -q "$EXPORT" "$BASHRC" ; then
+		echo "# RunCat" >> "$BASHRC"
 		echo "$EXPORT" >> "$BASHRC"
-
-		#fix here
-		echo "export PATH=\$PATH:\$$VAR/$APP_NAME" >> "$BASHRC"
+		echo "export PATH=\$PATH:\$$VAR" >> "$BASHRC"
 	fi
 	
 }
 
+
+runApp()
+{
+	$OUTPUT/$APP_NAME &
+}
 
 #download
 
@@ -58,4 +62,4 @@ addPath()
 
 addPath
 
-
+runApp

@@ -52,7 +52,9 @@ class GeneralViewModel extends CheckMenuViewModel<GeneralSetting> {
         check: _item.startUpLaunch,
         desc: "Launch RunCat at Login",
         onTap: () {
-          updateSetting(_item.copyWith(startUpLaunch: !_item.startUpLaunch));
+          final _value = !_item.startUpLaunch;
+          settingController.updateStartUpLaunch(_value);
+          updateSetting(_item.copyWith(startUpLaunch: _value));
         },
       ),
       CheckMenuItem(

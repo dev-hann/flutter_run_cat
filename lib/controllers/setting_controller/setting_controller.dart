@@ -53,6 +53,11 @@ class SettingController extends Controller
   @override
   void settingListener(int typeIndex) {}
 
+  void updateStartUpLaunch(bool value){
+    settingUseCase.updateStartUpLaunch(value);
+  }
+
+
   /// View
   final String generalViewID = "generalViewID";
   void updateGeneralView() {

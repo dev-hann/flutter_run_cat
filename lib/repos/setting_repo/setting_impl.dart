@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter_run_cat/consts.dart';
 import 'package:flutter_run_cat/databases/local_box.dart';
 import 'package:flutter_run_cat/repos/setting_repo/setting_repo.dart';
 
@@ -35,6 +38,20 @@ class SettingImpl extends SettingRepo {
   void notifyListeners(int typeIndex) {
     for (final listener in listenerList) {
       listener(typeIndex);
+    }
+  }
+
+  @override
+  void updateStartUpLaunch(bool value) async {
+    final file = File("$config/autostart/flutter_run_cat.desktop");
+    if (file.existsSync()) {
+      if (!value) {
+        file.delete();
+      }
+    } else {
+      if (value) {
+        file.writeAsString(autoStartDeskTop);
+      }
     }
   }
 }

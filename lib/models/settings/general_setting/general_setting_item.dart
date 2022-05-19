@@ -54,7 +54,7 @@ class GeneralStartUpItem extends GeneralItem {
   GeneralStartUpItem({
     bool? startUpLaunch,
     bool? checkUpdate,
-  })  : startUpLaunch = startUpLaunch ?? true,
+  })  : startUpLaunch = startUpLaunch ?? false,
         checkUpdate = checkUpdate ?? true,
         super(SettingItemType.startUp.index);
 

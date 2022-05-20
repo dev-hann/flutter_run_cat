@@ -15,4 +15,8 @@ class VersionUseCase extends UseCase<VersionRepo> {
   void visitGit() {
     repo.visitGit();
   }
+
+  void updateVersion() {
+    repo.updateVersion();
+  }
 }

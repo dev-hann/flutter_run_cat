@@ -14,14 +14,16 @@ class VersionViewModel extends MenuViewModel {
     super.init();
   }
 
-
-
   final String updateDesc = "updateDesc";
 
   void onTapGit() async {
     versionController.visitGit();
   }
 
+  void onTapUpdate() {
+    versionController.updateVersion();
+  }
+  
   @override
   Setting get loadSetting => throw UnimplementedError();
 

@@ -1,62 +1,31 @@
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter_run_cat/consts.dart';
 import 'package:flutter_run_cat/controllers/controllers.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
-import 'package:flutter_run_cat/repos/setting_repo/setting_impl.dart';
-import 'package:flutter_run_cat/use_cases/setting_use_case/setting_use_case.dart';
+import 'package:flutter_run_cat/utils/setting_helper.dart';
 import 'package:flutter_run_cat/utils/window_helper_mixin.dart';
 import 'package:get/get.dart';
 
-mixin SettingHelperMixin on Controller {
-  final SettingUseCase settingUseCase = SettingUseCase(SettingImpl());
+class SettingController extends Controller with WindonwHelperMixin {
+  static SettingController find() => Get.find<SettingController>();
 
-  Setting? loadSetting(int typeIndex) {
-    return settingUseCase.loadSetting(typeIndex);
-  }
-
-  Future<bool> updateSetting(Setting setting) {
-    return settingUseCase.updateSetting(setting);
-  }
+  final SettingHelper _settingHelper = SettingHelper();
 
   @override
   void onInit() async {
-    await settingUseCase.init();
-    settingUseCase.addSettingListener(settingListener);
-    super.onInit();
-  }
-
-  void disposeSetting() {
-    settingUseCase.removeSettingListener(settingListener);
-  }
-
-  void settingListener(int typeIndex);
-}
-
-class SettingController extends Controller
-    with SettingHelperMixin, WindonwHelperMixin {
-  static SettingController find() => Get.find<SettingController>();
-  
-  @override
-  void onInit() {
+    await _settingHelper.init();
     initWindow(const Size(windowMinWidth, windowMinHeight));
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    disposeSetting();
-    super.onClose();
+  Setting? loadSetting(int typeIndex) {
+    return _settingHelper.loadSetting(typeIndex);
   }
 
-  @override
-  void settingListener(int typeIndex) {}
-
-  void updateStartUpLaunch(bool value){
-    settingUseCase.updateStartUpLaunch(value);
+  void updateStartUpLaunch(bool value) {
+    _settingHelper.updateStartUpLaunch(value);
   }
-
 
   /// View
   final String generalViewID = "generalViewID";
@@ -74,5 +43,9 @@ class SettingController extends Controller
 
   void updateVersionView() {
     update([versionViewID]);
+  }
+
+  Future updateSetting(Setting setting) async {
+    _settingHelper.updateSetting(setting);
   }
 }

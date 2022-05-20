@@ -4,7 +4,6 @@ class RegistrationViewModel extends MenuViewModel {
   @override
   String get viewID => "RegistrationViewID";
 
-  @override
   Setting get loadSetting =>
       settingController.loadSetting(SettingType.registration.index) ??
       RegistrationSetting(itemList: []);

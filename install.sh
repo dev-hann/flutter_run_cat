@@ -1,65 +1,79 @@
 #!/bin/bash
 
 
-echo "Start Update..."
 APP_NAME="flutter_run_cat"
 
 RELEASE="https://github.com/yoehwan/flutter_run_cat/releases/download/v1.0.0/"
 
 RELEASE_NAME="Run.Cat.v1.0.0.x64.linux.tar.xz"
 
-OUTPUT="$HOME/flutter_run_cat"
+OUTPUT="/usr/lib/$APP_NAME"
 
 
-# ShutDown app
-pkill $APP_NAME
+init()
+{
+echo "Start Install RunCat..."
+}
+
+
+killPS(){
+	echo "kill Process...."
+	if  pgrep -x "$APP_NAME" >/dev/null 
+	then
+		sudo pkill $APP_NAME
+	fi
+}
+
 
 download()
 {
-if [ -x "$(which wget)" ] ; then
-	echo "download wget."
-	wget $RELEASE$RELEASE_NAME
-elif [ -x "$(which curl)" ] ; then
-	echo "download curl."
-else 
-	echo "Could not find curl or wget, please install one."
-fi
+	echo "Download New Release...."
+	file=$RELEASE$RELEASE_NAME
+
+	if [ ! -f "$RELEASE_NAME" ] ; then
+	if [ -x "$(which wget)" ] ; then
+		echo "download wget."
+		wget $file
+	elif [ -x "$(which curl)" ] ; then
+		echo "download curl."
+	else 
+		echo "Could not find curl or wget, please install one."
+	fi
+	fi
 }
 
 unzip()
 {
-
-mkdir -p $OUTPUT
-
-tar -xf $RELEASE_NAME -C "$OUTPUT"
-
-}
-
-addPath()
-{
-	
-	VAR="FLUTTER_RUN_CAT"
-	EXPORT="export $VAR=\"$OUTPUT\""
-	BASHRC="$HOME/.bashrc"
-
-	if ! grep -q "$EXPORT" "$BASHRC" ; then
-		echo "# RunCat" >> "$BASHRC"
-		echo "$EXPORT" >> "$BASHRC"
-		echo "export PATH=\$PATH:\$$VAR" >> "$BASHRC"
+	echo "UnZip Download File...."
+	if [ ! -f "$OUTPUT" ] ; then
+		sudo mkdir -p $OUTPUT
 	fi
-	
+	tar --overwrite -xvf $RELEASE_NAME -C "$OUTPUT"
+	rm $RELEASE_NAME
 }
 
-
-runApp()
+addBin()
 {
-	$OUTPUT/$APP_NAME &
+	echo "Add Binery...."
+	cd /usr/bin && sudo ln -sf $OUTPUT/$APP_NAME $APP_NAME
 }
+
+completed()
+{
+	echo "
+	Install Completed!
+	Run commnd 'flutter_run_cat' in cmd.
+	"
+}
+
+init
+
+killPS
 
 download
 
 unzip
 
-addPath
+addBin
 
-runApp
+completed

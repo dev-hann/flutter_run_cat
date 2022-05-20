@@ -6,6 +6,13 @@ It's only for **linux**, System Monitor with `run cat` written by `Flutter`.
 
 ## Installation
 
+```
+ git clone https://github.com/yoehwan/flutter_run_cat.git
+ cd flutter_run_cat
+ sudo ./install.sh
+```
+
+
 ## Future Work
 * Tray
     * Chart View 

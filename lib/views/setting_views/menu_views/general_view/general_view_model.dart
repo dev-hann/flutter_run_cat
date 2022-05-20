@@ -85,6 +85,9 @@ class GeneralViewModel extends CheckMenuViewModel<GeneralSetting> {
       case SettingItemType.disk:
       case SettingItemType.network:
         return;
+      case SettingItemType.registration:
+        // TODO: Handle this case.
+        break;
     }
     await settingController.updateSetting(_res);
     refreshSetting();

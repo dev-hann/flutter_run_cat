@@ -1,3 +1,4 @@
+
 import 'package:flutter_run_cat/repos/version_repo/version_repo.dart';
 import 'package:flutter_run_cat/services/version_service/version_service.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -23,9 +24,13 @@ class VersionImpl extends VersionRepo {
   String newVersion() {
     return _newVersion;
   }
-  
+
   @override
   void visitGit() {
     launchUrlString(_gitPath);
+  }
+
+  @override
+  Future updateVersion() async {
   }
 }

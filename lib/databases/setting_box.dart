@@ -20,6 +20,7 @@ class SettingBox extends LocalBox {
   }
 
   dynamic load(int typeIndex) {
+    
     return box.get(typeIndex);
   }
 

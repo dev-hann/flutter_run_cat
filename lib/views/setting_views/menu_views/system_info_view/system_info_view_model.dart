@@ -126,6 +126,9 @@ class SystemInfoViewModel extends CheckMenuViewModel<SystemSetting> {
         break;
       case SettingItemType.network:
         break;
+      case SettingItemType.registration:
+        // TODO: Handle this case.
+        break;
     }
 
     await settingController.updateSetting(_res);

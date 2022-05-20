@@ -3,11 +3,11 @@ import 'package:flutter/widgets.dart';
 
 mixin WindonwHelperMixin {
   void initWindow(Size size) {
-    doWhenWindowReady(() {
+    doWhenWindowReady(() async {
       final _w = appWindow;
       _w.size = size;
       _w.minSize = size;
-      // _w.hide();
+      _w.hide();
     });
   }
 

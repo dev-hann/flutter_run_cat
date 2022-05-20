@@ -8,6 +8,13 @@ import 'package:get/get.dart';
 abstract class Controller extends GetxController {
   final Completer _loading = Completer();
   Future get loading => _loading.future;
+@override
+  void onInit() {
+    /// call [onReady] forcely, 
+    ///because [SchedulerBinding] didn't called on main.dart.
+    /// cannot be triggered.
+    onReady();
+  }
 
   @override
   void onReady() {

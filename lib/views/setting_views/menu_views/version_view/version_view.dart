@@ -16,7 +16,7 @@ class VersionView extends MenuView<VersionViewModel> {
         ElevatedButton(
           onPressed: viewModel.onTapGit,
           child: Text("Github"),
-        )
+        ),
       ],
     );
   }

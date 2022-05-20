@@ -1,8 +1,8 @@
 import 'package:flutter_app_indicator/flutter_app_indicator.dart';
 import 'package:flutter_run_cat/controllers/controllers.dart';
-import 'package:flutter_run_cat/controllers/setting_controller/setting_controller.dart';
 import 'package:flutter_run_cat/enums/setting_type.dart';
 import 'package:flutter_run_cat/models/settings/setting.dart';
+import 'package:flutter_run_cat/utils/setting_helper.dart';
 import 'package:flutter_run_cat/utils/system_helper.dart';
 import 'package:flutter_run_cat/utils/ticker.dart';
 import 'package:flutter_run_cat/utils/window_helper_mixin.dart';
@@ -15,42 +15,46 @@ const _defaultRevIconDuration = Duration(milliseconds: 100);
 
 /// TODO: appIndicator make that be able to receive raw data of Icon, no path.
 /// It can be save cpu, but can be need more memory?
-class TrayController extends Controller
-    with SettingHelperMixin, WindonwHelperMixin {
+class TrayController extends Controller with WindonwHelperMixin {
   final FlutterAppIndicator _indicator = FlutterAppIndicator();
   final TrayView _trayView = TrayView('assets/cat/');
+  final SettingHelper _settingHelper = SettingHelper();
   final SystemHelper _systemHelper = SystemHelper();
-  int get cpuUsage => _systemHelper.cpuUsage();
-  System get loadSystem => _systemHelper.system;
+
   SystemSetting get loadSystemSetting {
-    final _res = loadSetting(SettingType.systemInfo.index);
+    final _res = _settingHelper.loadSetting(SettingType.systemInfo.index);
     if (_res == null) return SystemSetting();
     return _res as SystemSetting;
   }
 
   GeneralSetting get loadGeneralSetting {
-    final _res = loadSetting(SettingType.general.index);
+    final _res = _settingHelper.loadSetting(SettingType.general.index);
     if (_res == null) return GeneralSetting();
     return _res as GeneralSetting;
   }
 
+  int get cpuUsage => _systemHelper.cpuUsage();
+  System get loadSystem => _systemHelper.system;
+
   @override
   void onInit() async {
+    await _settingHelper.init();
     await _systemHelper.init();
     super.onInit();
   }
 
   @override
   Future onReady() async {
+    super.onReady();
     await _initTray();
     initTicker();
-    super.onReady();
+    _settingHelper.addSettingListener(settingListener);
   }
 
   @override
-  void onClose() {
-    disposeSetting();
-    super.onClose();
+  void dispose() {
+    _settingHelper.removeSettingListener(settingListener);
+    super.dispose();
   }
 
   Future _initTray() async {
@@ -117,7 +121,6 @@ class TrayController extends Controller
     _iconTicker.update(duration: _iconDuration());
   }
 
-  @override
   void settingListener(int typeIndex) {
     final type = SettingType.values[typeIndex];
     switch (type) {
@@ -127,6 +130,9 @@ class TrayController extends Controller
         break;
       case SettingType.systemInfo:
         _indicator.setLabel(_label());
+        break;
+      case SettingType.registration:
+        // TODO: Handle this case.
         break;
     }
   }

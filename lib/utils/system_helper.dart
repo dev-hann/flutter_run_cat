@@ -43,14 +43,19 @@ class SystemHelper {
     });
   }
 
+  final Completer _completer = Completer();
+
   bool _init = false;
 
   Future init() async {
-    if (_init) return;
-    _init = true;
-    await _useCase.init();
-    _loadSystem();
-    _initTimer();
+    if (!_init) {
+      _init = true;
+      await _useCase.init();
+      _loadSystem();
+      _initTimer();
+      _completer.complete();
+    }
+    await _completer.future;
   }
 
   void dispose() {
